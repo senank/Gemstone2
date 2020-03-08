@@ -1,0 +1,3 @@
+[run]
+source = gemstone2
+omit = gemstone2/test*
