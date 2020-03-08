@@ -1,5 +1,7 @@
 <%inherit file="layout.mako"/>
 <div class="content">
-  <h1><span class="font-semi-bold"> GEMSTONE II</span> <span class="smaller">Starter project</span></h1>
-  <p class="lead">Welcome to <span class="font-normal">${project}</span>, a&nbsp;Pyramid application generated&nbsp;by<br><span class="font-normal">Cookiecutter</span>.</p>
+## <div class="col-md-2">
+##   <img class="logo img-responsive" src="${request.static_url('gemstone2:static/pyramid.png') }" alt="pyramid web framework">
+## </div>
+  <h1><span class="font-semi-bold"> GEMSTONE II</span></h1>
 </div>
