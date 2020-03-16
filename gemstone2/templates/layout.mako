@@ -24,7 +24,21 @@
   </head>
 
   <body>
+    <nav>
+      <ul>
+        ## <li><a href="${request.route_url('home')}">Home</a></li>
+        % if request.authenticated_userid is not None:
+          <li>GEMSTONE II</li>
+          <li><a href="${request.route_url('report_list')}">Reports</a></li>
+          ## <li><a href="${request.route_url('edit_user')}">${request.user.username}</a></li>
+          <li><a href="${request.route_url('logout')}">logout</a></li>
+        %else:
+          <li><a href="${request.route_url('login')}">login</a></li>
+          ## <li><a href="${request.route_url('create')}">Create Account</a></li>
 
+        %endif
+      </ul>
+    </nav>
     <div class="starter-template">
       <div class="container">
         <div class="row">

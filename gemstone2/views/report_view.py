@@ -25,7 +25,7 @@ from datetime import datetime
 #     csrf_token = request.session.get_csrf_token()
 #     return csrf_token
 
-@view_config(route_name='home', renderer='../templates/home.mako')
+@view_config(route_name='report_list', renderer='../templates/report.mako')
 def reports(request):
     
     # user = request.user
@@ -33,7 +33,6 @@ def reports(request):
     try:
         # id_ = user.user_id
         query = request.dbsession.query(Report)
-        # reports = query.filter_by(user_id = id_).order_by(TodoItem.completed.asc(), TodoItem.position.asc()).all()
         reports = query.order_by(Report.year.desc(), Report.quarter.asc(), Report.company.asc()).all()
         
 

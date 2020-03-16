@@ -24,6 +24,3 @@
     </div>   
 </form>
 </div>
-<div>
-    <a href="${request.route_url('create')}">Create an Account</a>
-</div>
