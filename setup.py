@@ -25,6 +25,7 @@ requires = [
     'bcrypt',
     'pyramid_deform',
     'pillow',
+    'reportlab',
 ]
 
 tests_require = [

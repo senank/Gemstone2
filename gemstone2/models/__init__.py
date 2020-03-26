@@ -7,6 +7,7 @@ import zope.sqlalchemy
 # Base.metadata prior to any initialization routines
 from .reports import Report  # flake8: noqa
 from .users import User
+from .KPI import KPI
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup

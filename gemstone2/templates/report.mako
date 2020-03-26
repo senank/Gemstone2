@@ -1,9 +1,18 @@
 <%inherit file="layout.mako"/>
+%if auth_ == 'admin':
+    <a href="${request.route_url('kpi_list')}">KPI List</a>
+%endif
 %for item in reports:
     <li>
     <span id='description_name'>${item.company} ${item.quarter} ${item.year}</span>
+    %if auth_ == 'admin':
+    <a href="${request.route_url('edit_report', id=item.id)}">edit</a>
+    %endif
     </li>
 %endfor
+%if auth_ == 'admin':
+${form | n} 
+%endif
 ## <form action = "${request.route_url('add_test')}" method = "POST">
 ##     <div class = 'form-row'>
 ##         <div class = 'col' >

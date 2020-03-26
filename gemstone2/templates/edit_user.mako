@@ -1,7 +1,7 @@
 <%inherit file="layout.mako"/>
 
 <div class="content">
-    <h1>${request.user.username.capitalize()}</h1>
+    <h1>Welcome ${request.user.first_name.capitalize()}</h1>
     %if error:
         %for key, msg in error.items():
             <p class="alert alert-danger">
@@ -12,16 +12,20 @@
 
     ## ${form | n}
 
-    <h2> Edit Profile </h2>
+    <h2> Edit Your Profile </h2>
     <div class="form-group">
         <form action = "${request.route_url('edit_user')}" method = "POST" class = "inline-block" \
         onsubmit = "return confirm('Are you sure you want to update?\n\nIf field is left empty, there will be no changes made to that field')">
             <div>
-                <label>Username:
-                    <input type="text" class='form-control' name = "username" placeholder="${request.user.username.capitalize()}">
+                <label>First Name:
+                    <input type="text" class='form-control' name = "first_name" placeholder="${request.user.first_name.capitalize()}">
+                </label>
+            
+                <label>Last Name:
+                    <input type="text" class='form-control' name = "last_name" placeholder="${request.user.last_name.capitalize()}">
                 </label>
             </div>
-            
+
             <div class='form-group'>
                 <label>Password:
                     <input type = "text" class='form-control' name = "password" placeholder = "password">
@@ -37,8 +41,8 @@
                     <input name = 'login_submit' type = "submit" class = "btn btn-primary">
                     ## </div>
                     ## <div style='float:right'>
-                    <input name="Delete" id='delete' formaction = "${request.route_url('delete_user')}" type="submit" class="btn btn-danger" \
-                    value="Delete ${request.user.username.capitalize()}" onclick = "return confirm('THIS WILL DELETE YOUR ACCOUNT ARE YOU SURE YOU WANT TO CONTINUE?');">
+                    ## <input name="Delete" id='delete' formaction = "${request.route_url('delete_user')}" type="submit" class="btn btn-danger" \
+                    ## value="Delete ${request.user.username.capitalize()}" onclick = "return confirm('THIS WILL DELETE YOUR ACCOUNT ARE YOU SURE YOU WANT TO CONTINUE?');">
                     ## </div>
                 </div>
             </div>
