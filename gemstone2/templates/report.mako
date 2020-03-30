@@ -2,11 +2,12 @@
 %if auth_ == 'admin':
     <a href="${request.route_url('kpi_list')}">KPI List</a>
 %endif
-%for item in reports:
+%for report in reports:
     <li>
-    <span id='description_name'>${item.company} ${item.quarter} ${item.year}</span>
+    <span id='description_name'>${report.company} ${report.quarter} ${report.year}</span>
     %if auth_ == 'admin':
-    <a href="${request.route_url('edit_report', id=item.id)}">edit</a>
+    <a href="${request.route_url('edit_report', id=report.id)}">edit</a>
+    <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
     %endif
     </li>
 %endfor

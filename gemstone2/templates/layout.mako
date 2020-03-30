@@ -42,10 +42,9 @@
   <body>
   <div class = 'container'>
   % if request.authenticated_userid is not None:
-    <h2 class='logo'><font color='ff8800'>GEMSTONE II</font></h1>
-  
       %if request.user.permissions == 'admin':
         <ul class = 'nav navbar-nav navbar-left'>
+          <li><a href = "${request.route_url('home')}">Gemstone II</a></li>
           <li><a href = "${request.route_url('user_list')}" class = 'logo'><font color = 'ff8800'>Users</font></a></li>
         </ul>
       %endif

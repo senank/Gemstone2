@@ -5,7 +5,7 @@ from pyramid.httpexceptions import HTTPForbidden, HTTPFound
 from sqlalchemy import func
 from sqlalchemy.exc import DBAPIError
 
-from ..models import Report
+from ..models import Report, KPI
 
 from .report_actions import new_report
 
@@ -98,6 +98,30 @@ def reports(request):
         'page_title': 'Gemstone II',
         'project': 'Gemstone II',
         'form' : form
+    }
+
+
+@view_config(route_name = 'pdf_tester', renderer='../templates/pdf_tester.mako', permission = 'view')
+def pdf_tester(request):
+    try:
+        id_ = int(request.matchdict['id'])
+    except (ValueError, TypeError):
+        raise HTTPNotFound
+    
+    report = request.dbsession.query(Report).filter(Report.id == id_).first()
+    kpis = request.dbsession.query(KPI).filter(KPI.report_id == id_)
+
+    #reports in this year for company of object report
+    # (will include all current quarters)
+    yearly_reports = request.dbsession.query(Report).filter(Report.year == report.year, Report.company == report.company)
+    
+    
+    return {
+        'report' : report,
+        'yearly_reports' : yearly_reports,
+        'page_title' : 'Gemstone II',
+        'project' : 'Gemstone II',
+        'kpis' : kpis,
     }
 
 

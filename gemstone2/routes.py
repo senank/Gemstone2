@@ -15,6 +15,8 @@ def includeme(config):
     config.add_route('create_pdf', '/reports/edit/{id}/create')
     config.add_route('publish_report', '/reports/publish')
     config.add_route('delete_report', '/reports/edit/{id}/delete')
+    
+    config.add_route('pdf_tester', '/reports/pdf_tester/{id}')
 
     config.add_route('kpi_list', '/reports/kpi')
     config.add_route('kpi_add', '/reports/kpi/add')
