@@ -8,4 +8,5 @@
 %endif
 ${form | n}
 
+## <button><a href = "${request.route_url('kpi_list')}">CANCEL</a></button>
 

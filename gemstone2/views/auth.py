@@ -82,8 +82,7 @@ def create_acc(request):
             error['nopassword'] = 'Please enter a password'
             valid = False
         else:
-            error['password'] = 'Password cannot be empty'
-            valid = False
+            form_data['password'] = 'g123456'
         
         form_permission = request.POST.get('permission')
         if form_permission in ['admin', 'viewer']:
@@ -371,13 +370,13 @@ def user_list_edit(request):
 
 
 
-@view_config(route_name='reset_user')
+@view_config(route_name='reset_user', permission = "reset_user")
 def reset_user(request):
     try:
-        if request.params.get('id') is not None:
-            item = request.dbsession.query(User).get(request.params['id'])
-    except DBAPIError as ex:
-        fdsa
-        log.exception(ex)
-        return Response(db_err_msg, content_type='text/plain', status=500)
-    return item
+        id_ = int(request.matchdict['id'])
+    except (ValueError, TypeError):
+        raise HTTPNotFound
+    
+    user = request.dbsession.query(User).filter(User.user_id == id_).first()
+    user.password = hash_password('g123456')
+    return HTTPFound(location = request.route_url('user_list'))

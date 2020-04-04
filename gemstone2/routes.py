@@ -23,7 +23,8 @@ def includeme(config):
     config.add_route('kpi_edit', '/reports/kpi/edit/{id}')
     config.add_route('kpi_edit_save', 'reports/kpi/edit/{id}/save')
     config.add_route('kpi_show', '/reports/kpi/show')
+    config.add_route('kpi_delete', '/reports/kpi/delete/{id}')
 
     config.add_route('user_list', '/users')
     config.add_route('user_list_edit', '/users/edit/{id}')
-    config.add_route('reset_user', '/users/reset')
+    config.add_route('reset_user', '/users/reset/{id}')

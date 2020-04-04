@@ -10,19 +10,19 @@
         </div>
         <div class = 'form-group'>
             <label>First Name:
-                <input type="text" class='form-control' name = "first_name" placeholder="${request.user.first_name.capitalize()}">
+                <input type="text" class='form-control' name = "first_name">
             </label>
         
             <label>Last Name:
-                <input type="text" class='form-control' name = "last_name" placeholder="${request.user.last_name.capitalize()}">
+                <input type="text" class='form-control' name = "last_name">
             </label>
         </div>
         <div class = 'form-group'>
             <label>Password:
-                <input type = "password" class = 'form-control' name = "password" placeholder = 'Password'required>
+                <input type = "password" class = 'form-control' name = "password" placeholder = 'Password'>
             </label>
             <label>Confirm:
-                <input type = 'password' class = 'form-control' name ="confirm_password" placeholder = 'Confirm' required>
+                <input type = 'password' class = 'form-control' name ="confirm_password" placeholder = 'Confirm'>
             </label>
         </div>
         <div class = 'form-group'>

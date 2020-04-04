@@ -6,7 +6,7 @@ ${form | n}
     % if report.published:
     checked
     % endif
-    >
+    > Publish
 
 
 <%block name="page_script">

@@ -50,5 +50,5 @@
     </div>
 </div>
 <div style='float:left; clear:left;'>
-    <a href="${request.route_url('home')}">Cancel</a></br>
+    <a href="${request.route_url('home')}">Cancel</a>
 </div>

@@ -11,15 +11,18 @@ class Root(object):
             (Allow, 'admin', 'create'),
             (Allow, 'admin', 'edit_user'),
             (Allow, 'admin', 'delete_user'),
+            (Allow, 'admin', 'reset_user'),
             (Allow, 'admin', 'create_pdf'),
-            (Allow, 'admin', 'view'),
+            (Allow, 'admin', 'report_view'),
+
             (Allow, 'admin', 'kpi_list'),
             (Allow, 'admin', 'kpi_edit'),
+            (Allow, 'admin', 'kpi_delete'),
             (Allow, 'admin', 'logged'),
             (Allow, 'admin', 'user_list'),
 
             (Allow, 'viewer', 'logged'),
-            (Allow, 'viewer', 'view')]
+            (Allow, 'viewer', 'report_view')]
                
 
     def __init__(self, request):
