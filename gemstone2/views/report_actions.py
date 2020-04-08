@@ -50,56 +50,6 @@ def dic_of_data(report):
         'quarter' : report.quarter,
         'year' : report.year,
 
-        'highlight1' : report.highlight1,
-        'highlight2' : report.highlight2,
-        'highlight3' : report.highlight3,
-        'highlight4' : report.highlight4,
-        'highlight5' : report.highlight5,
-        'highlight6' : report.highlight6,
-        'highlight7' : report.highlight7,
-        'highlight8' : report.highlight8,
-        'highlight9' : report.highlight9,
-
-        'operation1' : report.operation1,
-        'operation2' : report.operation2,
-        'operation3' : report.operation3,
-        'operation4' : report.operation4,
-        'operation5' : report.operation5,
-        'operation6' : report.operation6,
-        'operation7' : report.operation7,
-        'operation8' : report.operation8,
-        'operation9' : report.operation9,
-
-        'strategy1' : report.strategy1,
-        'strategy2' : report.strategy2,
-        'strategy3' : report.strategy3,
-        'strategy4' : report.strategy4,
-        'strategy5' : report.strategy5,
-        'strategy6' : report.strategy6,
-        'strategy7' : report.strategy7,
-        'strategy8' : report.strategy8,
-        'strategy9' : report.strategy9,
-        
-        'customer_gained1' : report.customer_gained1,
-        'customer_gained2' : report.customer_gained2,
-        'customer_gained3' : report.customer_gained3,
-        'customer_gained4' : report.customer_gained4,
-        'customer_gained5' : report.customer_gained5,
-        'customer_gained6' : report.customer_gained6,
-        'customer_gained7' : report.customer_gained7,
-        'customer_gained8' : report.customer_gained8,
-        'customer_gained9' : report.customer_gained9,
-        
-        'order1' : report.order1,
-        'order2' : report.order2,
-        'order3' : report.order3,
-        'order4' : report.order4,
-        'order5' : report.order5,
-        'order6' : report.order6,
-        'order7' : report.order7,
-        'order8' : report.order8,
-        'order9' : report.order9,
-        
         'revenue_1' : report.revenue_1,
         'revenue_2' : report.revenue_2,
         'revenue_3' : report.revenue_3,
@@ -131,8 +81,6 @@ def dic_of_data(report):
         'cf_YTD' : report.cf_YTD,
         'cf_FY' : report.cf_FY,
         'cf_plan' : report.cf_plan,
-
-        'explain' : eval(report.explain),
 
         'filename' : report.filename,
         'unique_filename' : report.unique_filename
@@ -250,125 +198,106 @@ def new_report(request):
         report.cf_plan = 0
         
 
-    report.highlight1 = '[""]'
-    # report.highlight2 = [' vfds',]
-    report.operation = []
-    report.strategy = []
-    report.customer_gained = []
+    report.highlight = '[]'
+    report.operation = '[]'
+    report.strategy = '[]'
+    report.customer_gained = "[]"
+    report.order = "[]"
 
-    report.explain = []
+    report.explain = '[]'
 
     request.dbsession.add(report)
     
+def field_save(fields):
+    field_list = []
+    new_list = None
+    for key, val in fields.items():
+        if key == 'new':
+            new_list = val
+        else:
+            field_list.append(val)
+    
+    for new_field in new_list:
+        for key, val in new_field.items():
+            field_list.append(val)
+    return field_list
 
 @view_config(route_name = 'save_report', request_method = 'POST', permission = 'save_report')
 def save_report(request, form_data, report):
-    for key, val in form_data.items():
-        if key == 'year' and len(str(val))==4:
-            report.year = val
+    for field, data in form_data.items():
+        if field == 'year' and len(str(data))==4:
+            report.year = data
             
-        if key == 'company' and val in ['L&P', 'MGR']:
-            report.company = val
+        if field == 'company' and data in ['L&P', 'MGR']:
+            report.company = data
 
-        if key == 'quarter' and val in (1,2,3,4):
-            report.quarter = val
+        if field == 'quarter' and data in (1,2,3,4):
+            report.quarter = data
         
-        if key == 'highlights':
-            report.highlight1 = val['highlight_1']
-            report.highlight2 = val['highlight_2']
-            report.highlight3 = val['highlight_3']
-            report.highlight4 = val['highlight_4']
-            report.highlight5 = val['highlight_5']
-            report.highlight6 = val['highlight_6']
-            report.highlight7 = val['highlight_7']
-            # report.highlight8 = val['highlight_8']
-            # report.highlight9 = val['highlight_9']
+        if field == 'highlights':
+            highlights = field_save(data)
+            report.highlight = str(highlights)
+                        
 
-        if key == 'operations':
-            report.operation1 = val['operation_1']
-            report.operation2 = val['operation_2']
-            report.operation3 = val['operation_3']
-            report.operation4 = val['operation_4']
-            # report.operation5 = val['operation_5']
-            # report.operation6 = val['operation_6']
-            # report.operation7 = val['operation_7']
-            # report.operation8 = val['operation_8']
-            # report.operation9 = val['operation_9']
+        if field == 'operations':
+            operations = field_save(data)
+            report.operation = str(operations)
 
-        if key == 'strategies':
-            report.strategy1 = val['strategy_1']
-            report.strategy2 = val['strategy_2']
-            report.strategy3 = val['strategy_3']
-            report.strategy4 = val['strategy_4']
-            # report.strategy5 = val['strategy_5']
-            # report.strategy6 = val['strategy_6']
-            # report.strategy7 = val['strategy_7']
-            # report.strategy8 = val['strategy_8']
-            # report.strategy9 = val['strategy_9']
+        if field == 'strategies':
+            strategies = field_save(data)
+            report.strategy = str(strategies)
 
-        if key == 'customers':
-            report.customer_gained1 = val['customer_gained_1']
-            report.customer_gained2 = val['customer_gained_2']
-            report.customer_gained3 = val['customer_gained_3']
-            report.customer_gained4 = val['customer_gained_4']
-            # report.customer_gained5 = val['customer_gained_5']
-            # report.customer_gained6 = val['customer_gained_6']
-            # report.customer_gained7 = val['customer_gained_7']
-            # report.customer_gained8 = val['customer_gained_8']
-            # report.customer_gained9 = val['customer_gained_9']
+        if field == 'customers':
+            customers = field_save(data)
+            report.customer_gained = str(customers)
 
-        if key == 'orders':
-            report.order1 = val['order_1']
-            report.order2 = val['order_2']
-            report.order3 = val['order_3']
-            report.order4 = val['order_4']
-            # report.order5 = val['order_5']
-            # report.order6 = val['order_6']
-            # report.order7 = val['order_7']
-            # report.order8 = val['order_8']
-            # report.order9 = val['order_9']
+        if field == 'orders':
+            orders = field_save(data)
+            report.order = str(orders)
 
-        if key == 'revenue':
-            report.revenue_1 = val['revenue_1']
-            report.revenue_2 = val['revenue_2']
-            report.revenue_3 = val['revenue_3']
-            report.revenue_4 = val['revenue_4']
-            report.revenue_YTD = val['revenue_YTD']
-            report.revenue_FY = val['revenue_FY']
-            report.revenue_plan = val['revenue_plan']
+        if field == 'revenue':
+            report.revenue_1 = data['revenue_1']
+            report.revenue_2 = data['revenue_2']
+            report.revenue_3 = data['revenue_3']
+            report.revenue_4 = data['revenue_4']
+            report.revenue_YTD = data['revenue_YTD']
+            report.revenue_FY  = data['revenue_FY']
+            report.revenue_plan = data['revenue_plan']
 
-        if key == 'profit':
-            report.profit_1 = val['profit_1']
-            report.profit_2 = val['profit_2']
-            report.profit_3 = val['profit_3']
-            report.profit_4 = val['profit_4']
-            report.profit_YTD = val['profit_YTD']
-            report.profit_FY = val['profit_FY']
-            report.profit_plan = val['profit_plan']
+        if field == 'profit':
+            report.profit_1 = data['profit_1']
+            report.profit_2 = data['profit_2']
+            report.profit_3 = data['profit_3']
+            report.profit_4 = data['profit_4']
+            report.profit_YTD = data['profit_YTD']
+            report.profit_FY = data['profit_FY']
+            report.profit_plan = data['profit_plan']
 
-        if key == 'EBITDA':
-            report.EBITDA_1 = val['EBITDA_1']
-            report.EBITDA_2 = val['EBITDA_2']
-            report.EBITDA_3 = val['EBITDA_3']
-            report.EBITDA_4 = val['EBITDA_4']
-            report.EBITDA_YTD = val['EBITDA_YTD']
-            report.EBITDA_FY = val['EBITDA_FY']
-            report.EBITDA_plan = val['EBITDA_plan']
+        if field == 'EBITDA':
+            report.EBITDA_1 = data['EBITDA_1']
+            report.EBITDA_2 = data['EBITDA_2']
+            report.EBITDA_3 = data['EBITDA_3']
+            report.EBITDA_4 = data['EBITDA_4']
+            report.EBITDA_YTD = data['EBITDA_YTD']
+            report.EBITDA_FY = data['EBITDA_FY']
+            report.EBITDA_plan = data['EBITDA_plan']
 
-        if key == 'cf':
-            report.cf_1 = val['cf_1']
-            report.cf_2 = val['cf_2']
-            report.cf_3 = val['cf_3']
-            report.cf_4 = val['cf_4']
-            report.cf_YTD = val['cf_YTD']
-            report.cf_FY = val['cf_FY']
-            report.cf_plan = val['cf_plan']
+        if field == 'cf':
+            report.cf_1 = data['cf_1']
+            report.cf_2 = data['cf_2']
+            report.cf_3 = data['cf_3']
+            report.cf_4 = data['cf_4']
+            report.cf_YTD = data['cf_YTD']
+            report.cf_FY = data['cf_FY']
+            report.cf_plan = data['cf_plan']
     report.last_updated = datetime.now()
     request.dbsession.add(report)
 
 
-@view_config(route_name = 'delete_report', request_method = 'POST', permission = 'delete_report')
+
+@view_config(route_name = 'delete_report', permission = 'delete_report')
 def delete_report(request):
+    
     try:
         id_ = int(request.matchdict['id'])
     except (ValueError, TypeError):
@@ -376,7 +305,6 @@ def delete_report(request):
     
     report = request.dbsession.query(Report).filter(Report.id == id_).first()
     kpis = request.dbsession.query(KPI).filter(KPI.report_id == id_)
-    
     filepath = os.getcwd() + '/gemstone2/static/pdfs/'
         
     if report.filename:
@@ -388,6 +316,7 @@ def delete_report(request):
     
     kpis.delete()
     request.dbsession.delete(report)
+    return HTTPFound(location = request.route_url('report_list'))
 
 
 @view_config(route_name = 'create_pdf', request_method = 'POST', permission = 'create_pdf')
@@ -486,8 +415,6 @@ def edit_report(request):
     if report is None:
         raise HTTPForbidden
     
-    # x = report.highlight1
-    # f = ast.literal_eval(report.highlight1)
 
     kpis_query = request.dbsession.query(KPI).filter(KPI.report_id == 987654321)
     working_kpis = kpis_query.distinct(KPI.kpi_name)
@@ -510,70 +437,131 @@ def edit_report(request):
     class CSRFSchema(colander.MappingSchema): 
         csrf_token = colander.SchemaNode(colander.String(), default=deferred_csrf_default, widget=deform.widget.HiddenWidget())
     
-    #Highlight Schema
-    class Highlight(colander.Schema):
-        highlight_1 = colander.SchemaNode(colander.String(), description = '1', default = current['highlight1'], missing = current['highlight1'])
-        highlight_2 = colander.SchemaNode(colander.String(), description = '2', default = current['highlight2'], missing = current['highlight2'])
-        highlight_3 = colander.SchemaNode(colander.String(), description = '3', default = current['highlight3'], missing = current['highlight3'])
-        highlight_4 = colander.SchemaNode(colander.String(), description = '4', default = current['highlight4'], missing = current['highlight4'])
-        highlight_5 = colander.SchemaNode(colander.String(), description = '5', default = current['highlight5'], missing = current['highlight5'])
-        highlight_6 = colander.SchemaNode(colander.String(), description = "6", default = current['highlight6'], missing = current['highlight6'])
-        highlight_7 = colander.SchemaNode(colander.String(), description = '7', default = current['highlight7'], missing = current['highlight7'])
-        # highlight_8 = colander.SchemaNode(colander.String(), description = '8', default = current['highlight8'], missing = current['highlight8'])
-        # highlight_9 = colander.SchemaNode(colander.String(), description = '9', default = current['highlight9'], missing = current['highlight9'])
-        
+    # Highlight Schema
+    class Highlight_New(colander.Schema):
+        highlight = colander.SchemaNode(colander.String(), missing = colander.drop)
+
+    class Highlights_New_Schema(colander.SequenceSchema):
+        highlight = Highlight_New()
+
+    highlights = ast.literal_eval(report.highlight)
+    highlight_count = 1
+    highlight_schema_list = []
+    highlightschemas = colander.SchemaNode(colander.Mapping(), name = 'highlights', 
+                        title = 'Industry and Business Major Highlights',
+                        widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False))
+
+    for high in highlights:
+        highlightschemas.add(colander.SchemaNode(colander.String(),
+            name = str(highlight_count),
+            default = high,
+            missing = colander.drop))
+        highlight_count += 1
+    
+    highlightschemas.add(Highlights_New_Schema(name = 'new', title = ''))
 
     #Operations Schema
-    class Operation(colander.Schema):
-        operation_1 = colander.SchemaNode(colander.String(), description = '1', default = current['operation1'], missing = current['operation1'])
-        operation_2 = colander.SchemaNode(colander.String(), description = '2', default = current['operation2'], missing = current['operation2'])
-        operation_3 = colander.SchemaNode(colander.String(), description = '3', default = current['operation3'], missing = current['operation3'])
-        operation_4 = colander.SchemaNode(colander.String(), description = '4', default = current['operation4'], missing = current['operation4'])
-        # operation_5 = colander.SchemaNode(colander.String(), description = '5', default = current['operation5'], missing = current['operation5'])
-        # operation_6 = colander.SchemaNode(colander.String(), description = "6", default = current['operation6'], missing = current['operation6'])
-        # operation_7 = colander.SchemaNode(colander.String(), description = '7', default = current['operation7'], missing = current['operation7'])
-        # operation_8 = colander.SchemaNode(colander.String(), description = '8', default = current['operation8'], missing = current['operation8'])
-        # operation_9 = colander.SchemaNode(colander.String(), description = '9', default = current['operation9'], missing = current['operation9'])
+    class Operation_New(colander.Schema):
+        operation = colander.SchemaNode(colander.String(), missing = colander.drop)
 
+    class Operations_New_Schema(colander.SequenceSchema):
+        operation = Operation_New()
+
+    operations = ast.literal_eval(report.operation)
+    operation_count = 1
+    operation_schema_list = []
+    operationschemas = colander.SchemaNode(colander.Mapping(), name = 'operations', 
+                        title = 'Operations Update',
+                        widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False))
+
+    for op in operations:
+        operationschemas.add(colander.SchemaNode(colander.String(),
+            name = str(operation_count),
+            default = op,
+            missing = colander.drop))
+        operation_count += 1
+    
+    operationschemas.add(Operations_New_Schema(name = 'new', title = ''))
 
     #Strategy Schema
-    class Strategy(colander.Schema):
-        strategy_1 = colander.SchemaNode(colander.String(), description = '1', default = current['strategy1'], missing = current['strategy1'])
-        strategy_2 = colander.SchemaNode(colander.String(), description = '2', default = current['strategy2'], missing = current['strategy2'])
-        strategy_3 = colander.SchemaNode(colander.String(), description = '3', default = current['strategy3'], missing = current['strategy3'])
-        strategy_4 = colander.SchemaNode(colander.String(), description = '4', default = current['strategy4'], missing = current['strategy4'])
-        # strategy_5 = colander.SchemaNode(colander.String(), description = '5', default = current['strategy5'], missing = current['strategy5'])
-        # strategy_6 = colander.SchemaNode(colander.String(), description = "6", default = current['strategy6'], missing = current['strategy6'])
-        # strategy_7 = colander.SchemaNode(colander.String(), description = '7', default = current['strategy7'], missing = current['strategy7'])
-        # strategy_8 = colander.SchemaNode(colander.String(), description = '8', default = current['strategy8'], missing = current['strategy8'])
-        # strategy_9 = colander.SchemaNode(colander.String(), description = '9', default = current['strategy9'], missing = current['strategy9'])
+    class Strategy_New(colander.Schema):
+        strategy = colander.SchemaNode(colander.String(), missing = colander.drop)
+
+    class Strategys_New_Schema(colander.SequenceSchema):
+        strategy = Strategy_New()
+
+    strategys = ast.literal_eval(report.strategy)
+    strategy_count = 1
+    strategy_schema_list = []
+    strategyschemas = colander.SchemaNode(colander.Mapping(), name = 'strategys', 
+                        title = 'Strategic Initiative Update',
+                        widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False))
+
+    for strat in strategys:
+        strategyschemas.add(colander.SchemaNode(colander.String(),
+            name = str(strategy_count),
+            default = strat,
+            missing = colander.drop))
+        strategy_count += 1
+    
+    strategyschemas.add(Strategys_New_Schema(name = 'new', title = ''))
 
 
     #Customer_gained Schema
-    class Customer(colander.Schema):
-        customer_gained_1 = colander.SchemaNode(colander.String(), description = '1', default = current['customer_gained1'], missing = current['customer_gained1'])
-        customer_gained_2 = colander.SchemaNode(colander.String(), description = '2', default = current['customer_gained2'], missing = current['customer_gained2'])
-        customer_gained_3 = colander.SchemaNode(colander.String(), description = '3', default = current['customer_gained3'], missing = current['customer_gained3'])
-        customer_gained_4 = colander.SchemaNode(colander.String(), description = '4', default = current['customer_gained4'], missing = current['customer_gained4'])
-        # customer_gained_5 = colander.SchemaNode(colander.String(), description = '5', default = current['customer_gained5'], missing = current['customer_gained5'])
-        # customer_gained_6 = colander.SchemaNode(colander.String(), description = "6", default = current['customer_gained6'], missing = current['customer_gained6'])
-        # customer_gained_7 = colander.SchemaNode(colander.String(), description = '7', default = current['customer_gained7'], missing = current['customer_gained7'])
-        # customer_gained_8 = colander.SchemaNode(colander.String(), description = '8', default = current['customer_gained8'], missing = current['customer_gained8'])
-        # customer_gained_9 = colander.SchemaNode(colander.String(), description = '9', default = current['customer_gained9'], missing = current['customer_gained9'])
+    class Customer_gained_New(colander.Schema):
+        customer_gained = colander.SchemaNode(colander.String(), missing = colander.drop)
 
+    class Customer_gaineds_New_Schema(colander.SequenceSchema):
+        customer_gained = Customer_gained_New()
+
+    customer_gaineds = ast.literal_eval(report.customer_gained)
+    customer_gained_count = 1
+    customer_gained_schema_list = []
+    customer_gainedschemas = colander.SchemaNode(colander.Mapping(), name = 'customer_gaineds', 
+                        title = 'New Customers Gained During Quarter',
+                        widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False))
+
+    for customer in customer_gaineds:
+        customer_gainedschemas.add(colander.SchemaNode(colander.String(),
+            name = str(customer_gained_count),
+            default = customer,
+            missing = colander.drop))
+        customer_gained_count += 1
+    
+    customer_gainedschemas.add(Customer_gaineds_New_Schema(name = 'new', title = ''))
 
     #Orders Schema
-    class Order(colander.Schema):
-        order_1 = colander.SchemaNode(colander.String(), description = '1', default = current['order1'], missing = current['order1'])
-        order_2 = colander.SchemaNode(colander.String(), description = '2', default = current['order2'], missing = current['order2'])
-        order_3 = colander.SchemaNode(colander.String(), description = '3', default = current['order3'], missing = current['order3'])
-        order_4 = colander.SchemaNode(colander.String(), description = '4', default = current['order4'], missing = current['order4'])
-        # order_5 = colander.SchemaNode(colander.String(), description = '5', default = current['order5'], missing = current['order5'])
-        # order_6 = colander.SchemaNode(colander.String(), description = "6", default = current['order6'], missing = current['order6'])
-        # order_7 = colander.SchemaNode(colander.String(), description = '7', default = current['order7'], missing = current['order7'])
-        # order_8 = colander.SchemaNode(colander.String(), description = '8', default = current['order8'], missing = current['order8'])
-        # order_9 = colander.SchemaNode(colander.String(), description = '9', default = current['order9'], missing = current['order9'])
+    class Order_New(colander.Schema):
+        order = colander.SchemaNode(colander.String(), missing = colander.drop)
 
+    class Orders_New_Schema(colander.SequenceSchema):
+        order = Order_New()
+
+    orders = ast.literal_eval(report.order)
+    order_count = 1
+    order_schema_list = []
+    orderschemas = colander.SchemaNode(colander.Mapping(), name = 'orders',
+                        title = 'Major Orders Received During Quarter',
+                        widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False))
+
+    for x in orders:
+        orderschemas.add(colander.SchemaNode(colander.String(),
+            name = str(order_count),
+            default = x,
+            missing = colander.drop))
+        order_count += 1
+    
+    orderschemas.add(Orders_New_Schema(name = 'new', title = ''))
 
     #Revenue Schema
     class RevenueSchema(colander.Schema):
@@ -620,11 +608,29 @@ def edit_report(request):
 
 
     # Explain Schema
-    class Explaination(colander.Schema):
+    class Explain_New(colander.Schema):
         explain = colander.SchemaNode(colander.String(), missing = colander.drop)
 
-    class Explainations(colander.SequenceSchema):
-        explanation = Explaination()
+    class Explains_New_Schema(colander.SequenceSchema):
+        Explaination = Explain_New()
+
+    explains = ast.literal_eval(report.explain)
+    explain_count = 1
+    explain_schema_list = []
+    explainschemas = colander.SchemaNode(colander.Mapping(), name = 'explains', 
+                        title = 'Variance Explanation & Mitigation',
+                        widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False))
+
+    for ex in explains:
+        explainschemas.add(colander.SchemaNode(colander.String(),
+            name = str(explain_count),
+            default = ex,
+            missing = colander.drop))
+        explain_count += 1
+    
+    explainschemas.add(Explains_New_Schema(name = 'new', title = ''))
 
 
     #Form schema
@@ -638,7 +644,8 @@ def edit_report(request):
             widget = deform.widget.SelectWidget(values=(((1,1),(2,2),(3,3),(4,4),))),
             default = current['quarter'])
         year = colander.SchemaNode(colander.Integer(), default = current['year'], missing = current['year'])
-
+        
+        
         # highlights = HighlightsSchema(validator = colander.Length(min = 1, max = 10), 
         #     widget=deform.widget.SequenceWidget(min_len=1, max_len=10))
         # operations = OperationSchema(validator = colander.Length(min = 1, max = 10), 
@@ -650,16 +657,11 @@ def edit_report(request):
         # orders = Orders(validator = colander.Length(min = 1, max = 10), 
         #     widget=deform.widget.SequenceWidget(min_len=1, max_len=10)) 
         
-        highlights = Highlight(title = 'Industry & Business Major Highlights')
-        operations = Operation(title = 'Operations Update')
-        strategies = Strategy(title = 'Strategic Initiative Update')
-        customers = Customer(title = 'New Customers Gained During Quarter')
-        orders = Order(title = 'Major Orders Received During Quarter')
-
-        revenue = RevenueSchema()
-        profit = ProfitSchema()
-        EBITDA = EBITDASchema(title = 'EBITDA')
-        cf = CFSchema(title = 'CF')
+        # highlights = Highlight(title = 'Industry & Business Major Highlights')
+        # operations = Operation(title = 'Operations Update')
+        # strategies = Strategy(title = 'Strategic Initiative Update')
+        # customers = Customer(title = 'New Customers Gained During Quarter')
+        # orders = Order(title = 'Major Orders Received During Quarter')
 
         # explain = Explainations(
         #     validator = colander.Length(min = 1, max = 10), 
@@ -705,13 +707,33 @@ def edit_report(request):
             
             kpi_schema_list.append(KPISchema(name = new_kpi.kpi_name))
     
-    kpischemas = colander.SchemaNode(colander.Mapping(), name = 'kpis', title = 'KPIS')
+    kpischemas = colander.SchemaNode(colander.Mapping(), name = 'kpis', title = 'KPIS',
+    widget=deform.widget.MappingWidget(template="mapping_accordion", open=False))
     
     for item in kpi_schema_list:
         kpischemas.add(item)
     
+    schema.add(highlightschemas)
+    schema.add(operationschemas)
+    schema.add(strategyschemas)
+    schema.add(customer_gainedschemas)
+    schema.add(orderschemas)
+    schema.add(RevenueSchema(name = 'revenue', widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False)))
+    schema.add(ProfitSchema(name = 'profit', widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False)))
+    schema.add(EBITDASchema(name = 'EBITDA', title = 'EBITDA', widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False)))
+    schema.add(CFSchema(name = 'cf', title = 'Cash Flow', widget=deform.widget.MappingWidget(
+                        template="mapping_accordion",
+                        open=False)))
+    schema.add(explainschemas)
     schema.add(kpischemas)
-        
+
+
     #fileupload
     # class MemoryTmpStore(dict):
     #     """ Instances of this class implement the
@@ -730,7 +752,7 @@ def edit_report(request):
     #     ))
     
 
-    myform = deform.Form(schema, buttons=('save', 'pdf', 'delete'))
+    myform = deform.Form(schema, buttons=('save', 'pdf',))
     form = myform.render()
 
 
@@ -746,6 +768,7 @@ def edit_report(request):
                 'id' : id_,
                 'form' : e.render(),
                 }
+        
         save_report(request, form_data, report)
         
         kpi_form_data = None
@@ -776,9 +799,9 @@ def edit_report(request):
 
         return HTTPFound(location=request.route_url('report_list'))
         
-    elif 'delete' in request.POST:
-        delete_report(request)
-        return HTTPFound(location = request.route_url('report_list'))
+    # elif 'delete' in request.POST:
+    #     delete_report(request)
+    #     return HTTPFound(location = request.route_url('report_list'))
     
     if 'pdf' in request.POST:
         control = request.params.items()

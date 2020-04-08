@@ -4,12 +4,13 @@
 ## %endif
 %if auth_ == 'admin':
 <div class = 'row' style = "margin: 10px;">
-    <div class = "col-md-3 text-center" style = "padding: 15px; height : height: 100%;"><h5 style = "text-decoration: underline;">MGR Plastics</h5>
+    <div class = "col-md-6 text-center" style = "padding: 15px; height : height: 100%;"><h5 style = "text-decoration: underline;">MGR Plastics</h5>
         <ul>
             %for report in mgr_reports:
                 <li>
                 <span id='description_name'>${report.quarter} ${report.year}</span>
                 <a href="${request.route_url('edit_report', id=report.id)}">edit</a>
+                <a href = "${request.route_url('delete_report', id=report.id)}">delete</a>
                 %if report.published == True:
                     <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
                 %endif
@@ -17,18 +18,63 @@
             %endfor
         </ul>
     </div>
-    <div class = "col-md-3 text-center" style = "padding: 15px; height : height: 100%;"><h5 style = "text-decoration: underline;">Label and Pack</h5>
+    <div class = "col-md-6 text-center" style = "padding: 15px; height : height: 100%;"><h5 style = "text-decoration: underline;">Label and Pack</h5>
         <ul>
             %for report in lp_reports:
                 <li>
                 <span id='description_name'>${report.quarter} ${report.year}</span>
                 <a href="${request.route_url('edit_report', id=report.id)}">edit</a>
-                <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
+                <a href = "${request.route_url('delete_report', id=report.id)}">delete</a>
+                %if report.published == True:
+                    <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
+                %endif
                 </li>
             %endfor
         </ul>
     </div>
-    <div class = "col-md-6 text-center" style = "padding: 15px; height : height: 100%;"><h5 style = "text-decoration: underline;">Key Performance Indicators</h5>
+</div>
+
+
+###### Checking if the reports are correct ######
+
+## %if mgr_max_report:
+##     ${mgr_max_report.quarter} ${mgr_max_report.year}
+## %endif
+## %if lp_max_report:
+##     ${lp_max_report.quarter} ${lp_max_report.year}
+## %endif
+## ${maxs.year} ${maxs.quarter}
+
+
+${form | n} 
+
+%else:
+    <div class = 'row' style = "margin: 10px;">
+        <div class = "col-md-3 text-center" style = "padding: 15px; height : 150px;"><h5 style = "text-decoration: underline;">MGR Plastics</h5>
+            <ul>
+                %for report in mgr_reports:
+                    %if report.published == True:
+                        <li>
+                        <span id='description_name'>${report.quarter} ${report.year}</span>
+                        <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
+                        </li>
+                    %endif
+                %endfor
+            </ul>
+        </div>
+        <div class = "col-md-3 text-center" style = "padding: 15px; height : 150px;"><h5 style = "text-decoration: underline;">Label and Pack</h5>
+            <ul>
+                %for report in lp_reports:
+                    %if report.published == True:
+                        <li>
+                        <span id='description_name'>${report.quarter} ${report.year}</span>
+                        <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
+                        </li>
+                    %endif
+                %endfor
+            </ul>
+        </div>
+        <div class = "col-md-6 text-center" style = "padding: 15px; height : height: 100%;"><h5 style = "text-decoration: underline;">Key Performance Indicators</h5>
         <div class = "col-md-6"><h6 style = "text-decoration: underline;">MGR Plastic</h6>
         %if mgr_kpi_display:
             %for kpi in mgr_kpi_display:
@@ -52,49 +98,7 @@
         %endif
         </div>
     </div>
-</div>
-
-
-###### Checking if the reports are correct ######
-
-## %if mgr_max_report:
-##     ${mgr_max_report.quarter} ${mgr_max_report.year}
-## %endif
-## %if lp_max_report:
-##     ${lp_max_report.quarter} ${lp_max_report.year}
-## %endif
-## ${maxs.year} ${maxs.quarter}
-
-
-${form | n} 
-
-%else:
-<div class = 'row' style = "margin: 10px;">
-    <div class = "col-md-6 text-center" style = "padding: 15px; height : 150px;"><h5 style = "text-decoration: underline;">MGR Plastics</h5>
-        <ul>
-            %for report in mgr_reports:
-                %if report.published == True:
-                    <li>
-                    <span id='description_name'>${report.quarter} ${report.year}</span>
-                    <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
-                    </li>
-                %endif
-            %endfor
-        </ul>
     </div>
-    <div class = "col-md-6 text-center" style = "padding: 15px; height : 150px;"><h5 style = "text-decoration: underline;">Label and Pack</h5>
-        <ul>
-            %for report in lp_reports:
-                %if report.published == True:
-                    <li>
-                    <span id='description_name'>${report.quarter} ${report.year}</span>
-                    <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
-                    </li>
-                %endif
-            %endfor
-        </ul>
-    </div>
-</div>
 %endif
 
 
