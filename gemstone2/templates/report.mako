@@ -9,8 +9,8 @@
             %for report in mgr_reports:
                 <li>
                 <span id='description_name'>${report.quarter} ${report.year}</span>
-                <a href="${request.route_url('edit_report', id=report.id)}">edit</a>
-                <a href = "${request.route_url('delete_report', id=report.id)}">delete</a>
+                <a href="${request.route_url('edit_report', id=report.id)}"><button class = 'btn btn-primary'>edit</button></a>
+                <a href = "${request.route_url('delete_report', id=report.id)}"><button class = 'btn btn-danger' onclick = "return confirm('Are you sure you want to DELETE this report?')">delete</button></a>
                 %if report.published == True:
                     <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
                 %endif
@@ -23,8 +23,8 @@
             %for report in lp_reports:
                 <li>
                 <span id='description_name'>${report.quarter} ${report.year}</span>
-                <a href="${request.route_url('edit_report', id=report.id)}">edit</a>
-                <a href = "${request.route_url('delete_report', id=report.id)}">delete</a>
+                <a href="${request.route_url('edit_report', id=report.id)}"><button class = 'btn btn-primary'>edit</button></a>
+                <a href = "${request.route_url('delete_report', id=report.id)}"><button class = 'btn btn-danger' onclick = "return confirm('Are you sure you want to DELETE this report?')">delete</button></a>
                 %if report.published == True:
                     <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
                 %endif

@@ -24,34 +24,26 @@
         <div class = 'row' style = "margin: 10px;">
             <div class = "col-md-12 text-center" style = "padding: 15px; height : 225px; border-style: solid; border-width: 1px;"><h5 style = "text-decoration: underline;">Industry & Business Major Highlights</h5>
                 <ul>
-                    <li><div class = 'row'>${report.highlight1}</div></li>
-                    <li><div class = 'row'>${report.highlight2}</div></li>
-                    <li><div class = 'row'>${report.highlight3}</div></li>
-                    <li><div class = 'row'>${report.highlight4}</div></li>
-                    <li><div class = 'row'>${report.highlight5}</div></li>
-                    <li><div class = 'row'>${report.highlight6}</div></li>
-                    <li><div class = 'row'>${report.highlight7}</div></li>
+                %for highlight in highlights:
+                    <li><div class = 'row'>${highlight}</div></li>
+                %endfor
                 </ul>
-                ## <div class = 'row'>${report.highlight8}</div>
-                ## <div class = 'row'>${report.highlight9}</div>
             </div>
         </div>
         
         <div class = 'row' style = "margin: 10px;">
             <div class = "col-md-6 text-center" style = "padding: 15px; height : 150px; border-style: solid; border-width: 1px;"><h5 style = "text-decoration: underline;">Operations Update</h5>
                 <ul>
-                    <li><div class = 'row'>${report.operation1}</div></li>
-                    <li><div class = 'row'>${report.operation2}</div></li>
-                    <li><div class = 'row'>${report.operation3}</div></li>
-                    <li><div class = 'row'>${report.operation4}</div></li>
+                %for operation in operations:
+                    <li><div class = 'row'>${operation}</div></li>
+                %endfor
                 </ul>
             </div>
             <div class = "col-md-6 text-center" style = "padding: 15px; height : 150px; border-style: solid; border-width: 1px;"><h5 style = "text-decoration: underline;">Strategic Initiative Update</h5>
                 <ul>
-                    <li><div class = 'row'>${report.strategy1}</div></li>
-                    <li><div class = 'row'>${report.strategy1}</div></li>
-                    <li><div class = 'row'>${report.strategy1}</div></li>
-                    <li><div class = 'row'>${report.strategy1}</div></li>
+                %for strat in strategy:
+                    <li><div class = 'row'>${strat}</div></li>
+                %endfor
                 </ul>
             </div>
         </div>
@@ -59,18 +51,16 @@
         <div class = 'row' style = "margin: 10px;">
             <div class = "col-md-6 text-center" style = "padding: 15px; height : 150px; border-style: solid; border-width: 1px;"><h5 style = "text-decoration: underline;">New Customers Gained During Quarter</h5>
                 <ul>
-                    <li><div class = 'row'>${report.customer_gained1}</div></li>
-                    <li><div class = 'row'>${report.customer_gained2}</div></li>
-                    <li><div class = 'row'>${report.customer_gained3}</div></li>
-                    <li><div class = 'row'>${report.customer_gained4}</div></li>
+                %for customer in customer_gained:
+                    <li><div class = 'row'>${customer}</div></li>
+                %endfor
                 </ul>
             </div>
             <div class = "col-md-6 text-center" style = "padding: 15px; height : 150px; border-style: solid; border-width: 1px;"><h5 style = "text-decoration: underline;">Major Orders Received During Quarter</h5>
                 <ul>
-                    <li><div class = 'row'>${report.order1}</div></li>
-                    <li><div class = 'row'>${report.order2}</div></li>
-                    <li><div class = 'row'>${report.order3}</div></li>
-                    <li><div class = 'row'>${report.order4}</div></li>
+                %for order in orders:
+                    <li><div class = 'row'>${order}</div></li>
+                %endfor
                 </ul>
             </div>
         </div>

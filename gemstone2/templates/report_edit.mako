@@ -7,7 +7,7 @@ ${form | n}
     checked
     % endif
     > Publish
-
+<a href="${request.route_url('report_list')}"><button>back</button></a>
 
 <%block name="page_script">
 <script>

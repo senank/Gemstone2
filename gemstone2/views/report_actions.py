@@ -247,7 +247,7 @@ def save_report(request, form_data, report):
             strategies = field_save(data)
             report.strategy = str(strategies)
 
-        if field == 'customers':
+        if field == 'customer_gained':
             customers = field_save(data)
             report.customer_gained = str(customers)
 
@@ -439,7 +439,7 @@ def edit_report(request):
     
     # Highlight Schema
     class Highlight_New(colander.Schema):
-        highlight = colander.SchemaNode(colander.String(), missing = colander.drop)
+        highlight = colander.SchemaNode(colander.String(), missing = colander.drop, title = '')
 
     class Highlights_New_Schema(colander.SequenceSchema):
         highlight = Highlight_New()
@@ -464,7 +464,7 @@ def edit_report(request):
 
     #Operations Schema
     class Operation_New(colander.Schema):
-        operation = colander.SchemaNode(colander.String(), missing = colander.drop)
+        operation = colander.SchemaNode(colander.String(), missing = colander.drop, title = '')
 
     class Operations_New_Schema(colander.SequenceSchema):
         operation = Operation_New()
@@ -489,58 +489,58 @@ def edit_report(request):
 
     #Strategy Schema
     class Strategy_New(colander.Schema):
-        strategy = colander.SchemaNode(colander.String(), missing = colander.drop)
+        strategy = colander.SchemaNode(colander.String(), missing = colander.drop, title = '')
 
-    class Strategys_New_Schema(colander.SequenceSchema):
+    class Strategies_New_Schema(colander.SequenceSchema):
         strategy = Strategy_New()
 
-    strategys = ast.literal_eval(report.strategy)
+    strategies = ast.literal_eval(report.strategy)
     strategy_count = 1
     strategy_schema_list = []
-    strategyschemas = colander.SchemaNode(colander.Mapping(), name = 'strategys', 
+    strategieschemas = colander.SchemaNode(colander.Mapping(), name = 'strategies', 
                         title = 'Strategic Initiative Update',
                         widget=deform.widget.MappingWidget(
                         template="mapping_accordion",
                         open=False))
 
-    for strat in strategys:
-        strategyschemas.add(colander.SchemaNode(colander.String(),
+    for strat in strategies:
+        strategieschemas.add(colander.SchemaNode(colander.String(),
             name = str(strategy_count),
             default = strat,
             missing = colander.drop))
         strategy_count += 1
     
-    strategyschemas.add(Strategys_New_Schema(name = 'new', title = ''))
+    strategieschemas.add(Strategies_New_Schema(name = 'new', title = ''))
 
 
     #Customer_gained Schema
     class Customer_gained_New(colander.Schema):
-        customer_gained = colander.SchemaNode(colander.String(), missing = colander.drop)
+        customer_gained = colander.SchemaNode(colander.String(), missing = colander.drop, title = '')
 
-    class Customer_gaineds_New_Schema(colander.SequenceSchema):
+    class Customer_gained_New_Schema(colander.SequenceSchema):
         customer_gained = Customer_gained_New()
 
-    customer_gaineds = ast.literal_eval(report.customer_gained)
+    customer_gained = ast.literal_eval(report.customer_gained)
     customer_gained_count = 1
     customer_gained_schema_list = []
-    customer_gainedschemas = colander.SchemaNode(colander.Mapping(), name = 'customer_gaineds', 
+    customer_gainedschemas = colander.SchemaNode(colander.Mapping(), name = 'customer_gained', 
                         title = 'New Customers Gained During Quarter',
                         widget=deform.widget.MappingWidget(
                         template="mapping_accordion",
                         open=False))
 
-    for customer in customer_gaineds:
+    for customer in customer_gained:
         customer_gainedschemas.add(colander.SchemaNode(colander.String(),
             name = str(customer_gained_count),
             default = customer,
             missing = colander.drop))
         customer_gained_count += 1
     
-    customer_gainedschemas.add(Customer_gaineds_New_Schema(name = 'new', title = ''))
+    customer_gainedschemas.add(Customer_gained_New_Schema(name = 'new', title = ''))
 
     #Orders Schema
     class Order_New(colander.Schema):
-        order = colander.SchemaNode(colander.String(), missing = colander.drop)
+        order = colander.SchemaNode(colander.String(), missing = colander.drop, title = '')
 
     class Orders_New_Schema(colander.SequenceSchema):
         order = Order_New()
@@ -565,51 +565,51 @@ def edit_report(request):
 
     #Revenue Schema
     class RevenueSchema(colander.Schema):
-        revenue_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['revenue_1'], missing = current['revenue_1'])
-        revenue_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['revenue_2'], missing = current['revenue_2'])
-        revenue_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['revenue_3'], missing = current['revenue_3'])
-        revenue_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['revenue_4'], missing = current['revenue_4'])
-        revenue_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['revenue_YTD'], missing = current['revenue_YTD'])
-        revenue_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['revenue_FY'], missing = current['revenue_FY'])
-        revenue_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['revenue_plan'], missing = current['revenue_plan'])
+        revenue_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['revenue_1'], missing = current['revenue_1'], title = '')
+        revenue_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['revenue_2'], missing = current['revenue_2'], title = '')
+        revenue_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['revenue_3'], missing = current['revenue_3'], title = '')
+        revenue_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['revenue_4'], missing = current['revenue_4'], title = '')
+        revenue_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['revenue_YTD'], missing = current['revenue_YTD'], title = '')
+        revenue_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['revenue_FY'], missing = current['revenue_FY'], title = '')
+        revenue_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['revenue_plan'], missing = current['revenue_plan'], title = '')
 
 
     #Profit Schema
     class ProfitSchema(colander.Schema):
-        profit_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['profit_1'], missing = current['profit_1'])
-        profit_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['profit_2'], missing = current['profit_2'])
-        profit_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['profit_3'], missing = current['profit_3'])
-        profit_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['profit_4'], missing = current['profit_4'])
-        profit_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['profit_YTD'], missing = current['profit_YTD'])
-        profit_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['profit_FY'], missing = current['profit_FY'])
-        profit_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['profit_plan'], missing = current['profit_plan'])
+        profit_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['profit_1'], missing = current['profit_1'], title = '')
+        profit_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['profit_2'], missing = current['profit_2'], title = '')
+        profit_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['profit_3'], missing = current['profit_3'], title = '')
+        profit_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['profit_4'], missing = current['profit_4'], title = '')
+        profit_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['profit_YTD'], missing = current['profit_YTD'], title = '')
+        profit_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['profit_FY'], missing = current['profit_FY'], title = '')
+        profit_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['profit_plan'], missing = current['profit_plan'], title = '')
 
 
     #EBITDA Schema
     class EBITDASchema(colander.Schema):
-        EBITDA_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['EBITDA_1'], missing = current['EBITDA_1'])
-        EBITDA_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['EBITDA_2'], missing = current['EBITDA_2'])
-        EBITDA_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['EBITDA_3'], missing = current['EBITDA_3'])
-        EBITDA_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['EBITDA_4'], missing = current['EBITDA_4'])
-        EBITDA_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['EBITDA_YTD'], missing = current['EBITDA_YTD'])
-        EBITDA_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['EBITDA_FY'], missing = current['EBITDA_FY'])
-        EBITDA_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['EBITDA_plan'], missing = current['EBITDA_plan'])
+        EBITDA_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['EBITDA_1'], missing = current['EBITDA_1'], title = '')
+        EBITDA_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['EBITDA_2'], missing = current['EBITDA_2'], title = '')
+        EBITDA_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['EBITDA_3'], missing = current['EBITDA_3'], title = '')
+        EBITDA_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['EBITDA_4'], missing = current['EBITDA_4'], title = '')
+        EBITDA_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['EBITDA_YTD'], missing = current['EBITDA_YTD'], title = '')
+        EBITDA_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['EBITDA_FY'], missing = current['EBITDA_FY'], title = '')
+        EBITDA_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['EBITDA_plan'], missing = current['EBITDA_plan'], title = '')
 
 
     #cf Schema
     class CFSchema(colander.Schema):
-        cf_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['cf_1'], missing = current['cf_1'])
-        cf_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['cf_2'], missing = current['cf_2'])
-        cf_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['cf_3'], missing = current['cf_3'])
-        cf_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['cf_4'], missing = current['cf_4'])
-        cf_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['cf_YTD'], missing = current['cf_YTD'])
-        cf_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['cf_FY'], missing = current['cf_FY'])
-        cf_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['cf_plan'], missing = current['cf_plan'])
+        cf_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['cf_1'], missing = current['cf_1'], title = '')
+        cf_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['cf_2'], missing = current['cf_2'], title = '')
+        cf_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['cf_3'], missing = current['cf_3'], title = '')
+        cf_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['cf_4'], missing = current['cf_4'], title = '')
+        cf_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['cf_YTD'], missing = current['cf_YTD'], title = '')
+        cf_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['cf_FY'], missing = current['cf_FY'], title = '')
+        cf_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['cf_plan'], missing = current['cf_plan'], title = '')
 
 
     # Explain Schema
     class Explain_New(colander.Schema):
-        explain = colander.SchemaNode(colander.String(), missing = colander.drop)
+        explain = colander.SchemaNode(colander.String(), missing = colander.drop, title = '')
 
     class Explains_New_Schema(colander.SequenceSchema):
         Explaination = Explain_New()
@@ -682,12 +682,14 @@ def edit_report(request):
                 kpi_value = colander.SchemaNode(colander.Integer(),
                 description = 'Value',
                 default = db_kpis_data[distinct_kpi.kpi_name][0],
-                missing = db_kpis_data[distinct_kpi.kpi_name][0])
+                missing = db_kpis_data[distinct_kpi.kpi_name][0],
+                title = '')
             
                 kpi_target = colander.SchemaNode(colander.Integer(),
                 description = 'Target', 
                 default = db_kpis_data[distinct_kpi.kpi_name][1],
-                missing = db_kpis_data[distinct_kpi.kpi_name][1])
+                missing = db_kpis_data[distinct_kpi.kpi_name][1],
+                title = '')
 
             kpi_schema_list.append(KPISchema(name = distinct_kpi.kpi_name))
             kpis_used_list.append(distinct_kpi.kpi_name)
@@ -698,12 +700,14 @@ def edit_report(request):
                 kpi_value = colander.SchemaNode(colander.Integer(),
                 description = 'Value',
                 default = 0,
-                missing = 0)
+                missing = 0,
+                title = '')
             
                 kpi_target = colander.SchemaNode(colander.Integer(),
                 description = 'Target', 
                 default = 0,
-                missing = 0)
+                missing = 0,
+                title = '')
             
             kpi_schema_list.append(KPISchema(name = new_kpi.kpi_name))
     
@@ -715,7 +719,7 @@ def edit_report(request):
     
     schema.add(highlightschemas)
     schema.add(operationschemas)
-    schema.add(strategyschemas)
+    schema.add(strategieschemas)
     schema.add(customer_gainedschemas)
     schema.add(orderschemas)
     schema.add(RevenueSchema(name = 'revenue', widget=deform.widget.MappingWidget(
@@ -793,11 +797,7 @@ def edit_report(request):
                 kpi.report_id = id_
 
                 request.dbsession.add(kpi)
-            
-            
-                    
-
-        return HTTPFound(location=request.route_url('report_list'))
+        return HTTPFound(location=request.route_url('edit_report', id = id_))
         
     # elif 'delete' in request.POST:
     #     delete_report(request)
@@ -868,7 +868,10 @@ def pdf_tester(request):
     
     report = request.dbsession.query(Report).filter(Report.id == id_).first()
     kpis = request.dbsession.query(KPI).filter(KPI.report_id == id_)
-
+    highlights = ast.literal_eval(report.highlight)
+    operations = ast.literal_eval(report.operation)
+    customer_gained = ast.literal_eval(report.customer_gained)
+    strategy = ast.literal_eval(report.strategy)
     #reports in this year for company of object report
     # (will include all current quarters)
     yearly_reports = request.dbsession.query(Report).filter(Report.year == report.year, Report.company == report.company)
@@ -879,7 +882,7 @@ def pdf_tester(request):
         'company' : report.company,
         'quarter' : report.quarter,
 
-        'highlights' : [],
+        'highlights' : highlights,
         'operations' : [],
         'strategies' : [],
         'customers_gained' : [],
@@ -889,6 +892,12 @@ def pdf_tester(request):
     }
     
     return {
+        'highlights' : highlights,
+        'operations' : operations,
+        'customer_gained' : customer_gained,
+        'strategy' : strategy,
+        'orders' : ast.literal_eval(report.order),
+
         'report' : report,
         'yearly_reports' : yearly_reports,
         'page_title' : 'Gemstone II',

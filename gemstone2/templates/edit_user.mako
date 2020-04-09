@@ -39,6 +39,7 @@
                     <input type="hidden" name="csrf_token" value="${get_csrf_token()}">
                     ## <div style="float:left">
                     <input name = 'login_submit' type = "submit" class = "btn btn-primary">
+                    <a href="${request.route_url('home')}"><button class = 'btn btn-danger'>Cancel</button></a>
                     ## </div>
                     ## <div style='float:right'>
                     ## <input name="Delete" id='delete' formaction = "${request.route_url('delete_user')}" type="submit" class="btn btn-danger" \
@@ -48,7 +49,4 @@
             </div>
         </form>
     </div>
-</div>
-<div style='float:left; clear:left;'>
-    <a href="${request.route_url('home')}">Cancel</a>
 </div>

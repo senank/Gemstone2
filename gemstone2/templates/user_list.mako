@@ -34,9 +34,10 @@
         <div class = "col-md-3 text-center">${x.permissions}
         </div>
         <div class = "col-md-2 text-center">
-        <a href="${request.route_url('user_list_edit', id=x.user_id)}">x</a>
+            <a href="${request.route_url('user_list_edit', id=x.user_id)}"><button class = 'btn btn-primary'></button></a>
         </div>
-        <div class = "col-md-1 text-center"><a href = "${request.route_url('reset_user', id=x.user_id)}">x</a>
+        <div class = "col-md-1 text-center">
+            <a href = "${request.route_url('reset_user', id=x.user_id)}"><button class = 'btn btn-danger' onclick = "return confirm('Are you sure you want to reset this password?')"></button></a>
         </div>
     </div>
     ## %endif
@@ -44,7 +45,9 @@
         
 
 
-<div class = "row" style = "padding: 25px; height: 25px;">
+<div class = "row" style = "padding: 50px; height: 25px;">
     <div class= 'col-md-10'></div>
-    <div class = "col-md-2"><button><a href = "${request.route_url('create')}">CREATE A NEW USER</a></button></div>
+    <div class = "col-md-2">
+        <a href = "${request.route_url('create')}"><button class = 'btn btn-success'>CREATE A NEW USER</button></a>
+    </div>
 </div>
