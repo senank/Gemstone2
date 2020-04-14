@@ -28,7 +28,7 @@ class Report(Base):
     revenue_3 = Column(Integer)
     revenue_4 = Column(Integer)
     revenue_YTD = Column(Integer)
-    revenue_FY = Column(Integer)
+    revenue_FY = Column(Text)
     revenue_plan = Column(Integer)
 
     profit_1 = Column(Integer)
@@ -36,7 +36,7 @@ class Report(Base):
     profit_3 = Column(Integer)
     profit_4 = Column(Integer)
     profit_YTD = Column(Integer)
-    profit_FY = Column(Integer)
+    profit_FY = Column(Text)
     profit_plan = Column(Integer)
 
     EBITDA_1 = Column(Integer)
@@ -44,7 +44,7 @@ class Report(Base):
     EBITDA_3 = Column(Integer)
     EBITDA_4 = Column(Integer)
     EBITDA_YTD = Column(Integer)
-    EBITDA_FY = Column(Integer)
+    EBITDA_FY = Column(Text)
     EBITDA_plan = Column(Integer)
     
     cf_1 = Column(Integer)
@@ -52,7 +52,7 @@ class Report(Base):
     cf_3 = Column(Integer)
     cf_4 = Column(Integer)
     cf_YTD = Column(Integer)
-    cf_FY = Column(Integer)
+    cf_FY = Column(Text)
     cf_plan = Column(Integer)
     
     explain = Column(Text)

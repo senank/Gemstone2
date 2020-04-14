@@ -11,8 +11,12 @@
                 <span id='description_name'>${report.quarter} ${report.year}</span>
                 <a href="${request.route_url('edit_report', id=report.id)}"><button class = 'btn btn-primary'>edit</button></a>
                 <a href = "${request.route_url('delete_report', id=report.id)}"><button class = 'btn btn-danger' onclick = "return confirm('Are you sure you want to DELETE this report?')">delete</button></a>
-                %if report.published == True:
-                    <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
+                ## %if report.published == True:
+                ##     <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
+                ## %endif
+                %if report.filename is not None:
+                    <% filepath = 'gemstone2:static/pdfs/' + report.filename %>
+                    <a href = "${request.static_url(filepath)}">pdf</a>
                 %endif
                 </li>
             %endfor
@@ -25,8 +29,9 @@
                 <span id='description_name'>${report.quarter} ${report.year}</span>
                 <a href="${request.route_url('edit_report', id=report.id)}"><button class = 'btn btn-primary'>edit</button></a>
                 <a href = "${request.route_url('delete_report', id=report.id)}"><button class = 'btn btn-danger' onclick = "return confirm('Are you sure you want to DELETE this report?')">delete</button></a>
-                %if report.published == True:
-                    <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
+                %if report.filename is not None:
+                    <% filepath = 'gemstone2:static/pdfs/' + report.filename %>
+                    <a href = "${request.static_url(filepath)}">pdf</a>
                 %endif
                 </li>
             %endfor
@@ -53,11 +58,9 @@ ${form | n}
         <div class = "col-md-3 text-center" style = "padding: 15px; height : 150px;"><h5 style = "text-decoration: underline;">MGR Plastics</h5>
             <ul>
                 %for report in mgr_reports:
-                    %if report.published == True:
-                        <li>
-                        <span id='description_name'>${report.quarter} ${report.year}</span>
-                        <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
-                        </li>
+                    %if report.published == True and report.filename is not None:
+                        <% filepath = 'gemstone2:static/pdfs/' + report.filename %>
+                        <a href = "${request.static_url(filepath)}">${report.filename}</a>
                     %endif
                 %endfor
             </ul>
@@ -65,11 +68,9 @@ ${form | n}
         <div class = "col-md-3 text-center" style = "padding: 15px; height : 150px;"><h5 style = "text-decoration: underline;">Label and Pack</h5>
             <ul>
                 %for report in lp_reports:
-                    %if report.published == True:
-                        <li>
-                        <span id='description_name'>${report.quarter} ${report.year}</span>
-                        <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
-                        </li>
+                    %if report.published == True and report.filename is not None:
+                        <% filepath = 'gemstone2:static/pdfs/' + report.filename %>
+                        <a href = "${request.static_url(filepath)}">${report.filename}</a>
                     %endif
                 %endfor
             </ul>
