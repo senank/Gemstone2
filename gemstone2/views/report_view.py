@@ -64,6 +64,7 @@ def reports(request):
     #     add_item = colander.SchemaNode(colander.String(),validator = colander.Length(min = 1, max = 24), description = 'Add new item', name = 'description')
    
     # schema = MySchema().bind(request=request)
+    current = datetime.now().year
 
     schema = colander.SchemaNode(colander.Mapping(), colander.SchemaNode(colander.String(), name = 'csrf_token',\
         default=deferred_csrf_default, widget=deform.widget.HiddenWidget()).bind(request=request))
@@ -72,7 +73,8 @@ def reports(request):
         name = 'company'))
     schema.add(colander.SchemaNode(colander.Integer(), \
         name = 'year',
-        validator = colander.Range(min = 0, max = 3000)))
+        validator = colander.Range(min = 0, max = 3000),
+        default = current))
     schema.add(colander.SchemaNode(colander.Integer(),
         validator = colander.Range(min = 1, max = 4),
         widget = deform.widget.SelectWidget(values=(((1,1),(2,2),(3,3),(4,4),))),

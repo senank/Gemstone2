@@ -101,9 +101,9 @@ def new_report(request):
     
     report.company = request.params.get('company')
     report.quarter = request.params.get('quarter') or 1
-    report.year = request.params.get('year') or date.today().year
+    report.year = request.params.get('year')
     report.last_updated = datetime.now()
-
+    
     if request.params.get('quarter') != '1':
         yearly_reports = request.dbsession.query(Report).filter(Report.year == request.params.get('year'))
         for quarter in yearly_reports:

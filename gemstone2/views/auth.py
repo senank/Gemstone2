@@ -225,14 +225,14 @@ def edit_handler(request):
     }
 
 
-@view_config(route_name='login', renderer = "../templates/login.mako", request_method='GET', require_csrf=False)
+@view_config(route_name='login', renderer = "../templates/home.mako", request_method='GET', require_csrf=False)
 def login(request):
     return {
         'project': 'Gemstone II',
         'page_title': 'Login',
     }
 
-@view_config(route_name='login', renderer = "../templates/login.mako", request_method='POST', require_csrf=False)
+@view_config(route_name='login', renderer = "../templates/home.mako", request_method='POST', require_csrf=False)
 def login_handler(request):
     valid = True
     error = {}

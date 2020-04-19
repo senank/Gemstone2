@@ -4,11 +4,11 @@
 ## %endif
 %if auth_ == 'admin':
 <div class = 'row' style = "margin: 10px;">
-    <div class = "col-md-6 text-center" style = "padding: 15px; height : height: 100%;"><h5 style = "text-decoration: underline;">MGR Plastics</h5>
+    <div class = "col-md-6 text-center" style = "padding: 15px; height: 100%;"><h4 style = "text-decoration: underline;"><strong>MGR Plastics</strong></h4>
         <ul>
             %for report in mgr_reports:
                 <li>
-                <span id='description_name'>${report.quarter} ${report.year}</span>
+                <span>${report.quarter} ${report.year}</span>
                 <a href="${request.route_url('edit_report', id=report.id)}"><button class = 'btn btn-primary'>edit</button></a>
                 <a href = "${request.route_url('delete_report', id=report.id)}"><button class = 'btn btn-danger' onclick = "return confirm('Are you sure you want to DELETE this report?')">delete</button></a>
                 ## %if report.published == True:
@@ -22,7 +22,7 @@
             %endfor
         </ul>
     </div>
-    <div class = "col-md-6 text-center" style = "padding: 15px; height : height: 100%;"><h5 style = "text-decoration: underline;">Label and Pack</h5>
+    <div class = "col-md-6 text-center" style = "padding: 15px; height : 100%;"><h4 style = "text-decoration: underline;"><strong>Label and Pack</strong></h4>
         <ul>
             %for report in lp_reports:
                 <li>
@@ -55,7 +55,7 @@ ${form | n}
 
 %else:
     <div class = 'row' style = "margin: 10px;">
-        <div class = "col-md-3 text-center" style = "padding: 15px; height : 150px;"><h5 style = "text-decoration: underline;">MGR Plastics</h5>
+        <div class = "col-md-3 text-center" style = "padding: 15px; height : 150px;"><h4 style = "text-decoration: underline;"><strong>MGR Plastics</strong></h4>
             <ul>
                 %for report in mgr_reports:
                     %if report.published == True and report.filename is not None:
@@ -65,7 +65,7 @@ ${form | n}
                 %endfor
             </ul>
         </div>
-        <div class = "col-md-3 text-center" style = "padding: 15px; height : 150px;"><h5 style = "text-decoration: underline;">Label and Pack</h5>
+        <div class = "col-md-3 text-center" style = "padding: 15px; height : 150px;"><h4 style = "text-decoration: underline;"><strong>Label and Pack</strong></h4>
             <ul>
                 %for report in lp_reports:
                     %if report.published == True and report.filename is not None:
@@ -75,8 +75,8 @@ ${form | n}
                 %endfor
             </ul>
         </div>
-        <div class = "col-md-6 text-center" style = "padding: 15px; height : height: 100%;"><h5 style = "text-decoration: underline;">Key Performance Indicators</h5>
-        <div class = "col-md-6"><h6 style = "text-decoration: underline;">MGR Plastic</h6>
+        <div class = "col-md-6 text-center" style = "padding: 15px; height: 100%;"><h4 style = "text-decoration: underline;"><strong>Key Performance Indicators</strong></h4>
+        <div class = "col-md-6"><h5 style = "text-decoration: underline;">MGR Plastic</h5>
         %if mgr_kpi_display:
             %for kpi in mgr_kpi_display:
                 <li>
@@ -87,7 +87,7 @@ ${form | n}
             %endfor
         %endif
         </div>
-        <div class = "col-md-6"><h6 style = "text-decoration: underline;">Label and Pack</h6>
+        <div class = "col-md-6"><h5 style = "text-decoration: underline;">Label and Pack</h5>
         %if lp_kpi_display:
             %for kpi in lp_kpi_display:
                 <li>

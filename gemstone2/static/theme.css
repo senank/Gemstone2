@@ -2,8 +2,8 @@
 body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 450;
-  color: #000000;
-  background: #ffffff;
+  color: #ffffff;
+  background: #0d253f;
 }
 h1,
 h2,
@@ -174,22 +174,23 @@ header::after{
   margin-left: 70px;
   padding-top: 25px;
   position: relative;
-  color: #ff8800;
+  color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
 }
 
 .nav a{
-  color: #ff8800;
+  color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
 }
 
 .nav a:hover{
-  color: #ff8800;
+  color: #0d253f;
   text-decoration: none;
+  background-color: #0d253f;
 }
 
 .nav a::after{
@@ -197,7 +198,7 @@ header::after{
   display: block;
   height: 2px;
   width: 0%;
-  background-color: #ff8800;
+  background-color: #0d253f;
   top: 0px;
   position: relative;
 
@@ -206,6 +207,7 @@ header::after{
 
 .nav a:hover::after{
   width: 100%;
+  background-color: #0d253f;
 }
 
 .logo{
@@ -215,5 +217,25 @@ header::after{
 }
 
 #kpi_list{
-  background-color: aliceblue;
+  background-color: #0d253f;
+}
+
+.navcontainer{
+  padding-right: 10%;
+  padding-left: 10%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#arrowimg{
+  top: -203px;
+  left: -50px;
+  height: 600px;
+  width: 550px;
+}
+
+#home h2{
+  color: #c0c0c0;
+  margin-bottom: 30px;
+  font-size: 24px;
 }

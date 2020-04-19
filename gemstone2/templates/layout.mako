@@ -12,9 +12,10 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"> 
     <!-- Custom styles for this scaffold -->
     <link href="${request.static_url('gemstone2:static/theme.css')}" rel="stylesheet">
+    <link href="${request.static_url('gemstone2:static/login-register.css')}" rel="stylesheet">
 
     ## <link href="${request.static_url('gemstone2:static/sequence.pt')}" rel="stylesheet">
 
@@ -28,7 +29,9 @@
             type="text/javascript"></script>
     <script src="http://demo.substanced.net/deformstatic/scripts/bootstrap.min.js"
             type="text/javascript"></script>
-        
+
+    <script src="${request.static_url('gemstone2:static/login-register.js')}" type="text/javascript"></script>
+    
     <script type="text/javascript" src="http://demo.substanced.net/deformstatic/scripts/jquery.form-3.09.js"></script>
     
     <script type="text/javascript" src="http://demo.substanced.net/deformstatic/scripts/deform.js"></script>
@@ -40,31 +43,37 @@
   </head>
 
   <body>
-  <div class = 'container'>
-  % if request.authenticated_userid is not None:
-      %if request.user.permissions == 'admin':
-        <ul class = 'nav navbar-nav navbar-left'>
-          <li><a href = "${request.route_url('home')}">Gemstone II</a></li>
-          <li><a href = "${request.route_url('user_list')}" class = 'logo'><font color = 'ff8800'>Users</font></a></li>
-        </ul>
-      %endif
-  %endif
-        <ul class = 'nav navbar-nav navbar-right'>
-          ## <li><a href="${request.route_url('home')}">Home</a></li>
-          % if request.authenticated_userid is not None:
-            <li><a href="${request.route_url('edit_user')}">${request.user.first_name}</a></li>
-            % if request.user.permissions == 'admin':
-              <li><a href = "${request.route_url('kpi_list')}">KPIS</a></li>
+  <div class = 'navcontainer'>
+  
+    <nav>
+    % if request.authenticated_userid is not None:
+          <ul class = 'nav navbar-nav navbar-left'>
+            <li><a href = "${request.route_url('home')}">Gemstone II</a></li>
+          %if request.user.permissions == 'admin':
+            <li><a href = "${request.route_url('user_list')}">Users</a></li>
+          %endif  
+          </ul>
+        
+    %endif
+          <ul class = 'nav navbar-nav navbar-right'>
+            ## <li><a href="${request.route_url('home')}">Home</a></li>
+            % if request.authenticated_userid is not None:
+              <li><a href="${request.route_url('edit_user')}">${request.user.first_name}</a></li>
+              % if request.user.permissions == 'admin':
+                <li><a href = "${request.route_url('kpi_list')}">KPIS</a></li>
+              %endif
+              <li><a href="${request.route_url('report_list')}">Reports</a></li>
+              ## <li><a href="${request.route_url('edit_user')}">${request.user.username}</a></li>
+              <li><a href="${request.route_url('logout')}">Logout</a></li>
+            %else:
+              <li><a data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a></li>
+              ## <li><a href="${request.route_url('login')}">Login</a></li>
+              ## <li><a href="${request.route_url('create')}">Create Account</a></li>
             %endif
-            <li><a href="${request.route_url('report_list')}">Reports</a></li>
-            ## <li><a href="${request.route_url('edit_user')}">${request.user.username}</a></li>
-            <li><a href="${request.route_url('logout')}">Logout</a></li>
-          %else:
-            <li><a href="${request.route_url('login')}">Login</a></li>
-            ## <li><a href="${request.route_url('create')}">Create Account</a></li>
-
-          %endif
-        </ul>
+          </ul>
+      </nav>
+    </div>
+    <div class = 'container'>
       <div class="starter-template">
         <div class="container">
           <div class="row">
