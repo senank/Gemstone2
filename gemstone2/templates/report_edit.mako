@@ -7,9 +7,24 @@ ${form | n}
     checked
     % endif
     > Publish
-<a href="${request.route_url('report_list')}"><button>back</button></a>
-
 <%block name="page_script">
+<script>
+    var save = document.getElementById("deformsave");
+    save.classList.remove('btn-primary');
+    save.classList.add('btn-labeled','btn-success')
+    
+    var pdf = document.getElementById("deformpdf")
+    pdf.classList.remove('btn-default');
+    pdf.classList.add('btn-labeled','btn-warning')
+
+    var back = document.getElementById("deformback");
+    back.classList.remove('btn-default');
+    back.classList.add('btn-labeled','btn-primary')
+    
+    save.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>save';
+    pdf.innerHTML = '<span class="btn-label"><i class="far fa-file-pdf"></i></span>pdf';
+    back.innerHTML = '<span class="btn-label"><i class="fas fa-arrow-alt-circle-left"></i></span>back';
+</script>
 <script>
 var csrfToken = "${get_csrf_token()}";
 jQuery(function($){

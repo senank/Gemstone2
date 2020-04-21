@@ -692,8 +692,7 @@ def edit_report(request):
 
     ### FORM SCHEMA SETUP FINISHED ###
 
-
-    myform = deform.Form(schema, buttons=('save', 'pdf',))
+    myform = deform.Form(schema, buttons=('save', 'pdf', 'back'))
     form = myform.render()
 
 
@@ -801,6 +800,9 @@ def edit_report(request):
 
         return HTTPFound(location=request.route_url('report_list')) 
 
+    if 'back' in request.POST:
+        return HTTPFound(location=request.route_url('report_list'))
+        
     return {
         'report' : report,
         'id' : id_,

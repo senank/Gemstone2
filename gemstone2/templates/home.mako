@@ -3,14 +3,17 @@
   <section id="home">
     <div class="home-container">
     %if request.authenticated_userid is not None:
-      <h1>Welcome ${request.user.first_name.capitalize()},</h1>
+
+      <div class="contenedor">
+			  <h1>Welcome ${request.user.first_name.capitalize()},<span>&#160;</span></h1>
+	    </div>
       <div class = 'row'>
         <div class = 'col-md-7'><h2>Please visit the 'REPORTS' tab to view the Newest Reports</h2></div>
         <div class = 'col-md-5'><img class="logo img-responsive" id='arrowimg' src="${request.static_url('gemstone2:static/arrow.png')}" alt="pyramid web framework"></div>
       </div>
     %else:
       <h1><strong>GEMSTONE II</strong></h1>
-      <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel.</h2>
+      <h2>Investing for Growth</h2>
       ## </div>
     %endif
     </div>
@@ -58,17 +61,18 @@
 
 
               <div class="form loginBox">
-                  <form method="POST" action="${request.route_url('login')}" accept-charset="UTF-8">
-                  <input id="email" class="form-control" type="text" placeholder="Username" name="username">
-                  <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                  <input class="btn btn-default btn-login" type="submit" value="Login" name = 'login_submit'>
-                  </form>
+                <form method="POST" action="${request.route_url('login')}" accept-charset="UTF-8">
+                <input id="email" class="form-control" type="text" placeholder="Username" name="username">
+                <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                <input class="btn btn-default btn-login" type="submit" value="Login" name = 'login_submit'>
+                </form>
               </div>
             </div>
         </div>
       </div>
     </div>
   </div>
+<div>
 %if request.authenticated_userid is None:
   <script type="text/javascript">
       $(document).ready(function(){

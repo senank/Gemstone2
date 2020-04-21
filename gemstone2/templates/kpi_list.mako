@@ -20,7 +20,8 @@ ${form | n}
         <div class = "col-md-10"></div>
         ##     ## <div class = "col-md-10 text-left"><h5 style = "text-decoration: underline;">Name:</h5>
         ##     ## </div>
-        <div class = "col-md-2 text-right"><h5 style = "text-decoration: underline;">edit</h5>
+        
+        <div class = "col-md-2 text-right"><h4><strong>EDIT</strong></h4>
         </div>
         ##     ## <div class = "col-md-2 text-center"><h5 style = "text-decoration: underline;">DELETE</h5>
         ##     ## </div>
@@ -29,7 +30,7 @@ ${form | n}
             <div class = "row" style = "padding: 10px; height : 25px;">
                 <div class = "col-md-10 text-left">${kpi.kpi_name}</div>
                 
-                <div class = "col-md-2 text-right"><a href="${request.route_url('kpi_edit', id=kpi.kpi_id)}"><button class = 'btn btn-primary'></button></a></div>
+                <div class = "col-md-2 text-right"><a href="${request.route_url('kpi_edit', id=kpi.kpi_id)}"><button class = 'btn btn-labeled btn-warning' style='width:41px; margin-left: 20px1'><span class="btn-label"><i class="far fa-edit"></i></span></button></i></button></a></div>
                 ## <div class = "col-md-2 text-right"><a href="${request.route_url('kpi_edit', id=kpi.kpi_id)}">edit</a></div>
 
                 ## </div>
@@ -51,3 +52,12 @@ ${form | n}
         ## %endfor
     
 </div>
+<%block name="page_script">
+<script>
+    var add = document.getElementById("deformadd");
+    add.classList.remove('btn-primary');
+    add.classList.add('btn-labeled','btn-success')
+
+    add.innerHTML = '<span class="btn-label"><i class="fas fa-plus"></i></span>Add KPI';
+</script>
+</%block>
