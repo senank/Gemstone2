@@ -151,18 +151,18 @@ def create_pdf(request, file_name, data, kpis):
     ])
 
     title_style = TableStyle([
-        ('FONTSIZE', (0, 0), (-1, -1), 14), 
+        ('FONTSIZE', (0, 0), (-1, -1), 13), 
     ])
     
     heading_style = TableStyle([
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
-        ('FONTSIZE', (0, 0), (-1, -1), 12),
+        ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('FONTNAME', (0, 0), (-1, 0), "Helvetica-Bold")
     ])
 
     body_style = TableStyle([
         ('ALIGN', (0, 1), (-1, -1), 'LEFT'),
-        ('FONTSIZE', (0, 0), (-1, -1), 11),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
         ('BOX', (0, 0), (-1, -1), 1, colors.black),
         ('LINEBEFORE', (1, 0), (-1, -1), 1, colors.black)
         # ('FONTNAME', (0, 0), (-1, -1), "Helvetica")
@@ -170,9 +170,17 @@ def create_pdf(request, file_name, data, kpis):
 
     table_heading_style = TableStyle([
         ('ALIGN', (0, 0), (-1, 0), 'LEFT'),
-        ('FONTSIZE', (0, 0), (-1, -1), 12),
+        ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('FONTNAME', (0, 0), (-1, 0), "Helvetica-Bold"),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.black)
+    ])
+
+    table_body_style = TableStyle([
+        ('ALIGN', (0, 1), (-1, -1), 'LEFT'),
+        ('FONTSIZE', (0, 0), (-1, -1), 8.5),
+        ('BOX', (0, 0), (-1, -1), 1, colors.black),
+        ('LINEBEFORE', (1, 0), (-1, -1), 1, colors.black)
+        # ('FONTNAME', (0, 0), (-1, -1), "Helvetica")
     ])
 
     info_table_style = TableStyle([
@@ -299,9 +307,9 @@ def create_pdf(request, file_name, data, kpis):
         ['Gross Profit', data['profit_1'], data['profit_2'], data['profit_3'], data['profit_4'], data['profit_YTD'], data['profit_FY'], data['profit_plan']],
         ['EBITDA', data['EBITDA_1'], data['EBITDA_2'], data['EBITDA_3'], data['EBITDA_4'], data['EBITDA_YTD'], data['EBITDA_FY'], data['EBITDA_plan']],
         ['Free Cash Flow', data['cf_1'], data['cf_2'], data['cf_3'], data['cf_4'], data['cf_YTD'], data['cf_FY'], data['cf_plan']]
-    ], [140, 40, 40, 40, 40, 60, 70, 90])
+    ], [70, 65, 65, 65, 65, 73, 42, 75])
     finTable.setStyle(table_heading_style)
-    finTable.setStyle(body_heading)
+    finTable.setStyle(table_body_style)
 
     elems.append(finTableTitle)
     elems.append(finTable)

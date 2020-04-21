@@ -37,7 +37,7 @@
                 <div>
                     <div class='form-group'>
                         <input type="hidden" name="csrf_token" value="${get_csrf_token()}">
-                        <button type="submit" value="Login" name = 'login_submit' class = "btn btn-labeled btn-success"><span class="btn-label"><i class="fas fa-user-plus"></i></span>create</button>
+                        <button type="submit" style = "display: block !important; margin: 1vw 0 0 0;"value="Login" name = 'login_submit' class = "btn btn-labeled btn-success"><span class="btn-label"><i class="fas fa-user-plus"></i></span>create</button>
                     </div>
                 </div>
             </form>

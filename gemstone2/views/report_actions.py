@@ -29,6 +29,21 @@ from reportlab.platypus import SimpleDocTemplate, Table
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 
+def str_to_num(string):
+    val = ''
+    for i in string:
+        if i.isdigit() == True or (i == '.' and '.' not in val):
+            val = val + i
+    int_val = float(val)
+    return int_val
+
+def str_to_num_kpi(string):
+    val = ''
+    for i in string:
+        if (i.isdigit() == True) or (i == '.' and '.' not in val) or (i in ['<', '>', '=']):
+            val = val + i
+    return val
+
 def dic_of_data(report):
     current = {
         'company' : report.company,
@@ -83,7 +98,7 @@ def dic_of_data(report):
 def remove_files(path_name, item_name):
     for dirs, subdirs, files in os.walk(path_name):
         try:
-            os.remove('{}/{}'.format(dirs, item_name.unique_filename))
+            os.remove('{}/{}'.format(dirs, item_name.filename))
         except:
             pass
 
@@ -141,54 +156,54 @@ def new_report(request):
                 report.EBITDA_plan = quarter.EBITDA_plan
                 report.cf_plan = quarter.cf_plan
 
-        report.revenue_4 = 0
+        report.revenue_4 = '0'
         report.revenue_YTD = 0
         report.revenue_FY = '0%'
 
-        report.profit_4 = 0
+        report.profit_4 = '0'
         report.profit_YTD = 0
         report.profit_FY = '0%'
 
-        report.EBITDA_4 = 0
+        report.EBITDA_4 = '0'
         report.EBITDA_YTD = 0
         report.EBITDA_FY = '0%'
 
-        report.cf_4 = 0
+        report.cf_4 = '0'
         report.cf_YTD = 0
         report.cf_FY = '0%'
 
     else:
-        report.revenue_1 = 0
-        report.revenue_2 = 0
-        report.revenue_3 = 0
-        report.revenue_4 = 0
+        report.revenue_1 = '0'
+        report.revenue_2 = '0'
+        report.revenue_3 = '0'
+        report.revenue_4 = '0'
         report.revenue_YTD = 0
-        report.revenue_FY = 0
-        report.revenue_plan = 0
+        report.revenue_FY = '0%'
+        report.revenue_plan = '0'
 
-        report.profit_1 = 0
-        report.profit_2 = 0
-        report.profit_3 = 0
-        report.profit_4 = 0
+        report.profit_1 = '0'
+        report.profit_2 = '0'
+        report.profit_3 = '0'
+        report.profit_4 = '0'
         report.profit_YTD = 0
-        report.profit_FY = 0
-        report.profit_plan = 0
+        report.profit_FY = '0%'
+        report.profit_plan = '0'
 
-        report.EBITDA_1 = 0
-        report.EBITDA_2= 0
-        report.EBITDA_3 = 0
-        report.EBITDA_4 = 0
+        report.EBITDA_1 = '0'
+        report.EBITDA_2= '0'
+        report.EBITDA_3 = '0'
+        report.EBITDA_4 = '0'
         report.EBITDA_YTD = 0
-        report.EBITDA_FY = 0
-        report.EBITDA_plan = 0
+        report.EBITDA_FY = '0%'
+        report.EBITDA_plan = '0'
         
-        report.cf_1 = 0
-        report.cf_2 = 0
-        report.cf_3 = 0
-        report.cf_4 = 0
+        report.cf_1 = '0'
+        report.cf_2 = '0'
+        report.cf_3 = '0'
+        report.cf_4 = '0'
         report.cf_YTD = 0
-        report.cf_FY = 0
-        report.cf_plan = 0
+        report.cf_FY = '0%'
+        report.cf_plan = '0'
         
 
     report.highlight = '[]'
@@ -249,62 +264,96 @@ def save_report(request, form_data, report):
             report.order = str(orders)
 
         if field == 'revenue':
-            report.revenue_1 = data['revenue_1']
-            report.revenue_2 = data['revenue_2']
-            report.revenue_3 = data['revenue_3']
-            report.revenue_4 = data['revenue_4']
+            r1 = str_to_num(data['revenue_1'])
+            r2 = str_to_num(data['revenue_2'])
+            r3 = str_to_num(data['revenue_3'])
+            r4 = str_to_num(data['revenue_4'])
+            r_plan = str_to_num(data['revenue_plan'])
+
+            
+            
+            report.revenue_1 = "{:,.1f}".format(r1)
+            report.revenue_2 = "{:,.1f}".format(r2)
+            report.revenue_3 = "{:,.1f}".format(r3)
+            report.revenue_4 = "{:,.1f}".format(r4)
             
             try:
-                ytd = report.revenue_1 + report.revenue_2 +\
-                    report.revenue_3 + report.revenue_4
-                report.revenue_YTD = ytd
-                report.revenue_plan = data['revenue_plan']
-                report.revenue_FY = str(int(100*(ytd/data['revenue_plan']))) + "%"
+                ytd = r1 + r2 + r3 + r4
+                #adding commas
+                r_ytd = "{:,.1f}".format(ytd)
+                
+                report.revenue_YTD = r_ytd
+                report.revenue_plan = "{:,.1f}".format(r_plan)
+                report.revenue_FY = '{:.1%}'.format(ytd/r_plan)
             except (TypeError, ValueError, ZeroDivisionError):
                 report.revenue_FY  = 'N/A'
                 
 
         if field == 'profit':
-            report.profit_1 = data['profit_1']
-            report.profit_2 = data['profit_2']
-            report.profit_3 = data['profit_3']
-            report.profit_4 = data['profit_4']
+            p1 = str_to_num(data['profit_1'])
+            p2 = str_to_num(data['profit_2'])
+            p3 = str_to_num(data['profit_3'])
+            p4 = str_to_num(data['profit_4'])
+            p_plan = str_to_num(data['profit_plan'])
+
+            report.profit_1 = "{:,.1f}".format(p1)
+            report.profit_2 = "{:,.1f}".format(p2)
+            report.profit_3 = "{:,.1f}".format(p3)
+            report.profit_4 = "{:,.1f}".format(p4)
             
             try:
-                ytd = report.profit_1 + report.profit_2 +\
-                    report.profit_3 + report.profit_4
-                report.profit_YTD = ytd
-                report.profit_plan = data['profit_plan']
-                report.profit_FY = str(int(100*(ytd/data['profit_plan']))) + "%"
+                ytd = p1 + p2 + p3 + p4
+                #adding commas
+                p_ytd = "{:,.1f}".format(ytd)
+
+                report.profit_YTD = p_ytd
+                report.profit_plan = "{:,.1f}".format(p_plan)
+                report.profit_FY = '{:.1%}'.format(ytd/p_plan)
             except (TypeError, ValueError, ZeroDivisionError):
                 report.profit_FY  = 'N/A'
 
         if field == 'EBITDA':
-            report.EBITDA_1 = data['EBITDA_1']
-            report.EBITDA_2 = data['EBITDA_2']
-            report.EBITDA_3 = data['EBITDA_3']
-            report.EBITDA_4 = data['EBITDA_4']
+            e1 = str_to_num(data['EBITDA_1'])
+            e2 = str_to_num(data['EBITDA_2'])
+            e3 = str_to_num(data['EBITDA_3'])
+            e4 = str_to_num(data['EBITDA_4'])
+            e_plan = str_to_num(data['EBITDA_plan'])
+
+            report.EBITDA_1 = "{:,.1f}".format(e1)
+            report.EBITDA_2 = "{:,.1f}".format(e2)
+            report.EBITDA_3 = "{:,.1f}".format(e3)
+            report.EBITDA_4 = "{:,.1f}".format(e4)
             
             try:
-                ytd = report.EBITDA_1 + report.EBITDA_2 +\
-                    report.EBITDA_3 + report.EBITDA_4
-                report.EBITDA_YTD = ytd
-                report.EBITDA_plan = data['EBITDA_plan']
-                report.EBITDA_FY = str(int(100*(ytd/data['EBITDA_plan']))) + "%"
+                ytd = e1 + e2 + e3 + e4
+                #adding commas
+                e_ytd = "{:,.1f}".format(ytd)
+
+                report.EBITDA_YTD = e_ytd
+                report.EBITDA_plan = "{:,.1f}".format(e_plan)
+                report.EBITDA_FY = '{:.1%}'.format(ytd/e_plan)
             except (TypeError, ValueError, ZeroDivisionError):
                 report.EBITDA_FY  = 'N/A'
 
         if field == 'cf':
-            report.cf_1 = data['cf_1']
-            report.cf_2 = data['cf_2']
-            report.cf_3 = data['cf_3']
-            report.cf_4 = data['cf_4']
+            c1 = str_to_num(data['cf_1'])
+            c2 = str_to_num(data['cf_2'])
+            c3 = str_to_num(data['cf_3'])
+            c4 = str_to_num(data['cf_4'])
+            c_plan = str_to_num(data['cf_plan'])
+
+            report.cf_1 = "{:,.1f}".format(c1)
+            report.cf_2 = "{:,.1f}".format(c2)
+            report.cf_3 = "{:,.1f}".format(c3)
+            report.cf_4 = "{:,.1f}".format(c4)
             try:
-                ytd = report.cf_1 + report.cf_2 +\
-                    report.cf_3 + report.cf_4
-                report.cf_YTD = ytd
-                report.cf_plan = data['cf_plan']
-                report.cf_FY = str(int(100*(ytd/data['cf_plan']))) + "%"
+                ytd = c1 + c2 + c3 + c4
+                #adding commas
+                c_ytd = "{:,.1f}".format(ytd)
+
+                report.cf_YTD = c_ytd
+                report.cf_plan = "{:,.1f}".format(c_plan)
+                report.cf_FY = '{:.1%}'.format(ytd/c_plan)
             except (TypeError, ValueError, ZeroDivisionError):
                 report.cf_FY  = 'N/A'
 
@@ -526,46 +575,46 @@ def edit_report(request):
 
     #Revenue Schema
     class RevenueSchema(colander.Schema):
-        revenue_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['revenue_1'], missing = 0, title = '')
-        revenue_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['revenue_2'], missing = 0, title = '')
-        revenue_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['revenue_3'], missing = 0, title = '')
-        revenue_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['revenue_4'], missing = 0, title = '')
+        revenue_1 = colander.SchemaNode(colander.String(), description = 'Q1', default = current['revenue_1'], missing = '0', title = '')
+        revenue_2 = colander.SchemaNode(colander.String(), description = 'Q2', default = current['revenue_2'], missing = '0', title = '')
+        revenue_3 = colander.SchemaNode(colander.String(), description = 'Q3', default = current['revenue_3'], missing = '0', title = '')
+        revenue_4 = colander.SchemaNode(colander.String(), description = 'Q4', default = current['revenue_4'], missing = '0', title = '')
         # revenue_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['revenue_YTD'], missing = current['revenue_YTD'], title = '')
         # revenue_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['revenue_FY'], missing = current['revenue_FY'], title = '')
-        revenue_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['revenue_plan'], missing = current['revenue_plan'], title = '')
+        revenue_plan = colander.SchemaNode(colander.String(), description = 'FY Plan', default = current['revenue_plan'], missing = current['revenue_plan'], title = '')
 
 
     #Profit Schema
     class ProfitSchema(colander.Schema):
-        profit_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['profit_1'], missing = 0, title = '')
-        profit_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['profit_2'], missing = 0, title = '')
-        profit_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['profit_3'], missing = 0, title = '')
-        profit_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['profit_4'], missing = 0, title = '')
+        profit_1 = colander.SchemaNode(colander.String(), description = 'Q1', default = current['profit_1'], missing = '0', title = '')
+        profit_2 = colander.SchemaNode(colander.String(), description = 'Q2', default = current['profit_2'], missing = '0', title = '')
+        profit_3 = colander.SchemaNode(colander.String(), description = 'Q3', default = current['profit_3'], missing = '0', title = '')
+        profit_4 = colander.SchemaNode(colander.String(), description = 'Q4', default = current['profit_4'], missing = '0', title = '')
         # profit_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['profit_YTD'], missing = current['profit_YTD'], title = '')
         # profit_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['profit_FY'], missing = current['profit_FY'], title = '')
-        profit_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['profit_plan'], missing = current['profit_plan'], title = '')
+        profit_plan = colander.SchemaNode(colander.String(), description = 'FY Plan', default = current['profit_plan'], missing = current['profit_plan'], title = '')
 
 
     #EBITDA Schema
     class EBITDASchema(colander.Schema):
-        EBITDA_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['EBITDA_1'], missing = 0, title = '')
-        EBITDA_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['EBITDA_2'], missing = 0, title = '')
-        EBITDA_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['EBITDA_3'], missing = 0, title = '')
-        EBITDA_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['EBITDA_4'], missing = 0, title = '')
+        EBITDA_1 = colander.SchemaNode(colander.String(), description = 'Q1', default = current['EBITDA_1'], missing = '0', title = '')
+        EBITDA_2 = colander.SchemaNode(colander.String(), description = 'Q2', default = current['EBITDA_2'], missing = '0', title = '')
+        EBITDA_3 = colander.SchemaNode(colander.String(), description = 'Q3', default = current['EBITDA_3'], missing = '0', title = '')
+        EBITDA_4 = colander.SchemaNode(colander.String(), description = 'Q4', default = current['EBITDA_4'], missing = '0', title = '')
         # EBITDA_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['EBITDA_YTD'], missing = current['EBITDA_YTD'], title = '')
         # EBITDA_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['EBITDA_FY'], missing = current['EBITDA_FY'], title = '')
-        EBITDA_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['EBITDA_plan'], missing = current['EBITDA_plan'], title = '')
+        EBITDA_plan = colander.SchemaNode(colander.String(), description = 'FY Plan', default = current['EBITDA_plan'], missing = current['EBITDA_plan'], title = '')
 
 
     #cf Schema
     class CFSchema(colander.Schema):
-        cf_1 = colander.SchemaNode(colander.Integer(), description = 'Q1', default = current['cf_1'], missing = 0, title = '')
-        cf_2 = colander.SchemaNode(colander.Integer(), description = 'Q2', default = current['cf_2'], missing = 0, title = '')
-        cf_3 = colander.SchemaNode(colander.Integer(), description = 'Q3', default = current['cf_3'], missing = 0, title = '')
-        cf_4 = colander.SchemaNode(colander.Integer(), description = 'Q4', default = current['cf_4'], missing = 0, title = '')
+        cf_1 = colander.SchemaNode(colander.String(), description = 'Q1', default = current['cf_1'], missing = '0', title = '')
+        cf_2 = colander.SchemaNode(colander.String(), description = 'Q2', default = current['cf_2'], missing = '0', title = '')
+        cf_3 = colander.SchemaNode(colander.String(), description = 'Q3', default = current['cf_3'], missing = '0', title = '')
+        cf_4 = colander.SchemaNode(colander.String(), description = 'Q4', default = current['cf_4'], missing = '0', title = '')
         # cf_YTD = colander.SchemaNode(colander.Integer(), description = 'YTD Actual', default = current['cf_YTD'], missing = current['cf_YTD'], title = '')
         # cf_FY = colander.SchemaNode(colander.Integer(), description = "% of FY Plan", default = current['cf_FY'], missing = current['cf_FY'], title = '')
-        cf_plan = colander.SchemaNode(colander.Integer(), description = 'FY Plan', default = current['cf_plan'], missing = current['cf_plan'], title = '')
+        cf_plan = colander.SchemaNode(colander.String(), description = 'FY Plan', default = current['cf_plan'], missing = current['cf_plan'], title = '')
 
 
     # Explain Schema
@@ -608,6 +657,8 @@ def edit_report(request):
     
     schema = MySchema().bind(request=request)
     
+
+    #KPI Schema
     kpi_schema_list = []
     kpis_used_list = []
     for distinct_kpi in distinct_kpis:
@@ -615,13 +666,13 @@ def edit_report(request):
         if distinct_kpi.kpi_name in db_kpis_data:
             
             class KPISchema(colander.MappingSchema):
-                kpi_value = colander.SchemaNode(colander.Integer(),
+                kpi_value = colander.SchemaNode(colander.String(),
                 description = 'Value',
                 default = db_kpis_data[distinct_kpi.kpi_name][0],
                 missing = db_kpis_data[distinct_kpi.kpi_name][0],
                 title = '')
             
-                kpi_target = colander.SchemaNode(colander.Integer(),
+                kpi_target = colander.SchemaNode(colander.String(),
                 description = 'Target', 
                 default = db_kpis_data[distinct_kpi.kpi_name][1],
                 missing = db_kpis_data[distinct_kpi.kpi_name][1],
@@ -633,16 +684,16 @@ def edit_report(request):
     for new_kpi in working_kpis:
         if new_kpi.kpi_name not in kpis_used_list:
             class KPISchema(colander.MappingSchema):
-                kpi_value = colander.SchemaNode(colander.Integer(),
+                kpi_value = colander.SchemaNode(colander.String(),
                 description = 'Value',
-                default = 0,
-                missing = 0,
+                default = '0',
+                missing = '0',
                 title = '')
             
-                kpi_target = colander.SchemaNode(colander.Integer(),
+                kpi_target = colander.SchemaNode(colander.String(),
                 description = 'Target', 
-                default = 0,
-                missing = 0,
+                default = '0',
+                missing = '0',
                 title = '')
             
             kpi_schema_list.append(KPISchema(name = new_kpi.kpi_name))
@@ -720,16 +771,36 @@ def edit_report(request):
             try:
                 db_kpi = request.dbsession.query(KPI).filter(KPI.kpi_name == key, KPI.report_id == id_).first()
             except:
-                pass
+                db_kpi = None
             if db_kpi is not None:
-                db_kpi.value = val['kpi_value']
-                db_kpi.target = val['kpi_target']
+
+                k_v = str_to_num(val['kpi_value'])
+                k_t = str_to_num(val['kpi_target'])
+                k_t_ = str_to_num_kpi(val['kpi_target'])
+                
+                logic_symbol = ''
+                for char in k_t_:
+                    if (char in ['<', '>', '=']) and (logic_symbol == ''):
+                        logic_symbol = char
+
+                db_kpi.value = "{:,.1f}".format(k_v)
+                db_kpi.target = "{} {:,.1f}".format(logic_symbol, k_t)
                 request.dbsession.add(db_kpi)
             else:
                 kpi = KPI()
                 kpi.kpi_name = key
-                kpi.value = val['kpi_value']
-                kpi.target = val['kpi_target']
+
+                k_v = str_to_num(val['kpi_value'])
+                k_t = str_to_num(val['kpi_target'])
+                k_t_ = str_to_num_kpi(val['kpi_target'])
+                
+                logic_symbol = ''
+                for char in k_t_:
+                    if (char in ['<', '>', '=']) and (logic_symbol == ''):
+                        logic_symbol = char
+
+                kpi.value = "{:,.1f}".format(k_v)
+                kpi.target = "{} {:,.1f}".format(logic_symbol, k_t)
                 kpi.report_id = id_
 
                 request.dbsession.add(kpi)
@@ -750,8 +821,15 @@ def edit_report(request):
                 'id' : id_,
                 'form' : e.render(),
             }
-        save_report(request, form_data, report)
         
+        file_path = os.getcwd() + '/gemstone2/static/pdfs/'
+        if report.filename:
+            try:
+                remove_files(filepath, report)
+            except:
+                pass
+                
+        save_report(request, form_data, report)
         kpi_form_data = None
         if 'kpis' in form_data.keys():
             kpi_form_data = form_data['kpis']
@@ -778,18 +856,8 @@ def edit_report(request):
 
 
         ### making pdf document ###
-
-        #filepath
-        file_path = os.getcwd() + '/gemstone2/static/pdfs/'
         file_name = "{0}_Quarterly_{1}_{2}.pdf".format(form_data['company'], form_data['quarter'], form_data['year'])
         file_ = file_path + file_name
-        
-        if report.filename:
-            try:
-                os.remove(file_)
-                remove_files(filepath+'cache/', report)
-            except:
-                pass
         
         #function
         func_data = dic_of_data(report)
