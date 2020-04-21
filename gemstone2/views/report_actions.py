@@ -12,6 +12,8 @@ from sqlalchemy.exc import DBAPIError
 from ..models import Report, KPI
 from .pdf_actions import create_pdf
 
+from .mail import send_email
+
 import uuid
 from deform.interfaces import FileUploadTempStore
 
@@ -365,7 +367,6 @@ def save_report(request, form_data, report):
     request.dbsession.add(report)
 
 
-
 @view_config(route_name = 'delete_report', permission = 'delete_report')
 def delete_report(request):
     
@@ -406,6 +407,7 @@ def publish_report(request):
         report.published = completed
         if completed:
             report.last_updated = datetime.now()
+            send_email(request)
         request.dbsession.add(report)
     else:
         return Response('Not Found', content_type='text/plain', status=404)

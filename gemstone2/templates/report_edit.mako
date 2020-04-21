@@ -5,6 +5,8 @@ ${form | n}
 <input type="checkbox" value="1" name="report" data-id="${report.id}"
     % if report.published:
     checked
+    % else:
+    onclick = "return confirm('Are you sure you want to publish?\n\n THIS WILL NOTIFY ALL USERS')"
     % endif
     > Publish
 <%block name="page_script">
