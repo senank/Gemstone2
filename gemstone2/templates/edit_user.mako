@@ -28,10 +28,10 @@
 
                 <div class='form-group'>
                     <label>Password:
-                        <input type = "text" class='form-control' name = "password" placeholder = "password">
+                        <input type = "password" class='form-control' name = "password" placeholder = "Password">
                     </label>
                     <label>Confirm:
-                        <input type = "text" class='form-control' name = "confirm_password" placeholder = "confirm">
+                        <input type = "password" class='form-control' name = "confirm_password" placeholder = "Confirm">
                     </label>
                 </div>
                 <div>
@@ -40,7 +40,7 @@
                         ## <div style="float:left">
                         ## <input name = 'login_submit' type = "submit" class = "btn btn-labeled btn-primary">
                         <button type="submit" value="Login" name = 'login_submit' class = "btn btn-labeled btn-success"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>submit</button>
-                        <a href="${request.route_url('home')}"><button class = 'btn btn-danger btn-labeled' style='margin-left: 1vw;'><span class="btn-label"><i class="fas fa-times"></i></span>Cancel</button></a>
+                        <a href="${request.route_url('home')}"><button class = 'btn btn-danger btn-labeled'><span class="btn-label"><i class="fas fa-times"></i></span>Cancel</button></a>
                         ## </div>
                         ## <div style='float:right'>
                         ## <input name="Delete" id='delete' formaction = "${request.route_url('delete_user')}" type="submit" class="btn btn-danger" \

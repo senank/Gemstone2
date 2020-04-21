@@ -27,7 +27,7 @@ p {
   font-weight: 700;
 }
 .starter-template {
-  margin-top: 250px;
+  margin-top: 5vw;
 }
 .starter-template .content {
   margin-left: 10px;
@@ -73,7 +73,7 @@ p {
   font-weight: 400;
 }
 .starter-template .links ul li a, a {
-  color: rgb(0, 0, 0);
+  color: white;
 }
 .starter-template .links ul li a:hover, a:hover {
   color: #822737;
@@ -116,7 +116,8 @@ p {
     text-align: center;
   }
   .starter-template .content h1 {
-    margin-bottom: 20px;
+    margin-bottom: 1vw;
+    margin-left: 10vw
   }
   .starter-template .links {
     float: none;
@@ -410,4 +411,57 @@ select{
   color: rgb(255, 255, 0);
   text-decoration: underline;
   font-weight: 500;
+}
+
+.panel-default>*{
+  background-color: #0d253f !important;
+}
+
+.panel-default > .panel-heading{
+  border-bottom: None !important;
+  color: white;
+}
+
+.panel-default > .panel-footer{
+  border-top: None !important;
+}
+
+.deform-seq > .panel-default{
+  border: None !important;
+}
+
+.deform-seq-add{
+  text-decoration: none;
+  color: white;
+
+}
+
+.panel-heading > a:hover, a:focus{
+  text-decoration: None !important;
+  color: #b8ff76 !important;
+}
+
+.form-group > input{
+  background-color: #23374d !important;
+  color: white !important;
+}
+
+.form-group > select{
+  background-color: #23374d !important;
+  color: white !important;
+}
+
+.btn{
+  margin-right: 0.3vw;
+}
+
+.panel{
+  margin-bottom:0.6vw;
+}
+
+@media (max-width:629px) {
+  img#arrowimg{
+    display: none;
+  }
+
 }

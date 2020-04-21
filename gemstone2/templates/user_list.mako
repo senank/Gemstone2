@@ -34,10 +34,10 @@
         <div class = "col-md-3 text-center">${x.permissions}
         </div>
         <div class = "col-md-2 text-center">
-            <a href="${request.route_url('user_list_edit', id=x.user_id)}"><button class = 'btn btn-labeled btn-warning' style='width:41px; margin-left: 20px1'><span class="btn-label"><i class="far fa-edit"></i></span></button></i></button></a>
+            <a href="${request.route_url('user_list_edit', id=x.user_id)}"><button class = 'btn btn-labeled btn-warning' style='width:39px; margin-left: 0.5vw'><span class="btn-label"><i class="far fa-edit"></i></span></button></i></button></a>
         </div>
         <div class = "col-md-1 text-center">
-            <a href = "${request.route_url('reset_user', id=x.user_id)}"><button class = 'btn btn-danger btn-labeled' style='width:41px; margin-left: 20px1' onclick = "return confirm('Are you sure you want to reset this password?')"><span class = "btn-label"><i class="fas fa-redo"></i></span></button></a>
+            <a href = "${request.route_url('reset_user', id=x.user_id)}"><button class = 'btn btn-danger btn-labeled' style='width:39px; margin-left: 0.3vw' onclick = "return confirm('Are you sure you want to reset this password?')"><span class = "btn-label"><i class="fas fa-redo"></i></span></button></a>
         </div>
     </div>
     ## %endif
@@ -46,8 +46,8 @@
 
 
 <div class = "row" style = "padding: 50px; height: 25px;">
-    <div class= 'col-md-10'></div>
-    <div class = "col-md-2">
-        <a href = "${request.route_url('create')}"><button class = 'btn btn-labeled btn-success'><span class = "btn-label"><i class="fas fa-user-plus"></i></span>Create A New User</button></a>
+    <div class= 'col-md-9'></div>
+    <div class = "col-md-3">
+        <a href = "${request.route_url('create')}"><button class = 'btn btn-labeled btn-success' style = "margin: 1vw 0 0 5vw;"><span class = "btn-label"><i class="fas fa-user-plus"></i></span>Create A New User</button></a>
     </div>
 </div>

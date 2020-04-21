@@ -306,6 +306,19 @@ def user_list_edit(request):
         widget=deform.widget.HiddenWidget(),
         ).bind(request=request))
 
+    #Full Name
+    schema.add(colander.SchemaNode(colander.String(),
+        name = 'first_name',
+        validator = colander.Length(min = 1, max = 24),
+        default = current['first_name'].capitalize()
+        ))
+
+    schema.add(colander.SchemaNode(colander.String(),
+        name = 'last_name',
+        validator = colander.Length(min = 1, max = 24),
+        default = current['last_name'].capitalize()
+        ))
+
     #Username    
     schema.add(colander.SchemaNode(colander.String(),
         name = 'username',
@@ -313,24 +326,12 @@ def user_list_edit(request):
         validator = colander.Length(min = 1, max = 24)
         ))
 
-    #Full Name
-    schema.add(colander.SchemaNode(colander.String(),
-        name = 'first_name',
-        validator = colander.Length(min = 1, max = 24),
-        default = current['first_name']
-        ))
-
-    schema.add(colander.SchemaNode(colander.String(),
-        name = 'last_name',
-        validator = colander.Length(min = 1, max = 24),
-        default = current['last_name']
-        ))
-
     #Permission
     schema.add(colander.SchemaNode(colander.String(),
-        widget = deform.widget.SelectWidget(values=((('admin','admin'),('viewer','viewer'),))),
+        widget = deform.widget.SelectWidget(values=((('admin','Admin'),('viewer','Viewer'),))),
         name = 'permission',
         default = current['permission']))
+
     
     myform = deform.Form(schema, buttons = ('submit', 'delete', 'cancel',))
     form = myform.render()

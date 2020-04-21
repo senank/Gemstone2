@@ -10,15 +10,15 @@
 <script>
     var save = document.getElementById("deformsubmit");
     save.classList.remove('btn-primary');
-    save.classList.add('btn-labeled','btn-success')
+    save.classList.add('btn-labeled','btn-success');
     
-    var pdf = document.getElementById("deformdelete")
+    var pdf = document.getElementById("deformdelete");
     pdf.classList.remove('btn-default');
-    pdf.classList.add('btn-labeled','btn-danger')
+    pdf.classList.add('btn-labeled','btn-danger');
 
     var back = document.getElementById("deformcancel");
     back.classList.remove('btn-default');
-    back.classList.add('btn-labeled','btn-primary')
+    back.classList.add('btn-labeled','btn-primary');
     
     save.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>save';
     pdf.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>delete';

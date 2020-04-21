@@ -1,4 +1,6 @@
 <%inherit file="layout.mako"/>
+<h1 style="margin-bottom: 5vw;">${report.company} Q${report.quarter} ${report.year}</h1>
+
 ${form | n}
 
 
@@ -13,16 +15,24 @@ ${form | n}
 <script>
     var save = document.getElementById("deformsave");
     save.classList.remove('btn-primary');
-    save.classList.add('btn-labeled','btn-success')
+    save.classList.add('btn-labeled','btn-success');
     
-    var pdf = document.getElementById("deformpdf")
+    var pdf = document.getElementById("deformpdf");
     pdf.classList.remove('btn-default');
-    pdf.classList.add('btn-labeled','btn-warning')
+    pdf.classList.add('btn-labeled','btn-warning');
 
     var back = document.getElementById("deformback");
     back.classList.remove('btn-default');
-    back.classList.add('btn-labeled','btn-primary')
+    back.classList.add('btn-labeled','btn-primary');
+
+    var add = document.getElementsByClassName("deform-seq-add")
     
+    for(var i = 0; i < add.length; i++){
+        add[i].classList.add('btn-labeled','btn-success');
+        add[i].style.width = '39px'
+        add[i].innerHTML = '<span class="btn-label"><i class="fas fa-plus"></i></span>'
+    }
+
     save.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>save';
     pdf.innerHTML = '<span class="btn-label"><i class="far fa-file-pdf"></i></span>pdf';
     back.innerHTML = '<span class="btn-label"><i class="fas fa-arrow-alt-circle-left"></i></span>back';

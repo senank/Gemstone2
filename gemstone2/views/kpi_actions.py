@@ -133,9 +133,10 @@ def kpi_edit(request):
     schema.add(colander.SchemaNode(colander.String(),
         validator = colander.Length(min = 1, max = 60),
         name = 'name',
-        default = kpi.kpi_name))
+        default = kpi.kpi_name,
+        title="KPI Description"))
 
-    myform = deform.Form(schema, buttons = ('cancel', 'save', 'delete',))
+    myform = deform.Form(schema, buttons = ('save', 'delete', 'back'))
     form = myform.render()
 
     if 'save' in request.POST:
@@ -160,7 +161,7 @@ def kpi_edit(request):
         request.dbsession.flush()
         return HTTPFound(location = request.route_url('kpi_list'))
 
-    if 'cancel' in request.POST:
+    if 'back' in request.POST:
         return HTTPFound(location = request.route_url('kpi_list'))
     
     return {

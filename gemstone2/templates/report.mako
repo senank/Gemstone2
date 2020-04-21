@@ -17,7 +17,7 @@
                     <div style="margin: 0 3.4vw 0 0; display: inline-block;"></div>
                 %endif
                 <a href="${request.route_url('edit_report', id=report.id)}"><button class = 'btn btn-labeled btn-warning'><span class="btn-label"><i class="far fa-edit"></i></span>edit</button></a>
-                <a href = "${request.route_url('delete_report', id=report.id)}"><button class = 'btn btn-labeled btn-danger' style="width:41px;" onclick = "return confirm('Are you sure you want to DELETE this report?')"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span></button></a>
+                <a href = "${request.route_url('delete_report', id=report.id)}"><button class = 'btn btn-labeled btn-danger' style="width:39px;" onclick = "return confirm('Are you sure you want to DELETE this report?')"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span></button></a>
                 ## %if report.published == True:
                 ##     <a href = "${request.route_url('pdf_tester', id = report.id)}">pdf</a>
                 ## %endif
@@ -37,7 +37,7 @@
                     <div style="margin: 0 3.4vw 0 0; display: inline-block;"></div>
                 %endif
                 <a href="${request.route_url('edit_report', id=report.id)}"><button class = 'btn btn-labeled btn-warning'><span class="btn-label"><i class="far fa-edit"></i></span>edit</button></a>
-                <a href = "${request.route_url('delete_report', id=report.id)}"><button class = 'btn btn-labeled btn-danger' style="width:41px;" onclick = "return confirm('Are you sure you want to DELETE this report?')"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span></button></a>
+                <a href = "${request.route_url('delete_report', id=report.id)}"><button class = 'btn btn-labeled btn-danger' style="width:39px;" onclick = "return confirm('Are you sure you want to DELETE this report?')"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span></button></a>
                 </li>
             %endfor
         </ul>
@@ -126,7 +126,7 @@ ${form | n}
 <script>
     var add = document.getElementById("deformadd");
     add.classList.remove('btn-primary');
-    add.classList.add('btn-labeled','btn-success')
+    add.classList.add('btn-labeled','btn-success');
 
     add.innerHTML = '<span class="btn-label"><i class="fas fa-plus"></i></span>Add Report';
 </script>

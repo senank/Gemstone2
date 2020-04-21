@@ -469,7 +469,8 @@ def edit_report(request):
         highlightschemas.add(colander.SchemaNode(colander.String(),
             name = str(highlight_count),
             default = high,
-            missing = colander.drop))
+            missing = colander.drop,
+            title=''))
         highlight_count += 1
     
     highlightschemas.add(Highlights_New_Schema(name = 'new', title = ''))
@@ -494,7 +495,8 @@ def edit_report(request):
         operationschemas.add(colander.SchemaNode(colander.String(),
             name = str(operation_count),
             default = op,
-            missing = colander.drop))
+            missing = colander.drop,
+            title=''))
         operation_count += 1
     
     operationschemas.add(Operations_New_Schema(name = 'new', title = ''))
@@ -519,7 +521,8 @@ def edit_report(request):
         strategieschemas.add(colander.SchemaNode(colander.String(),
             name = str(strategy_count),
             default = strat,
-            missing = colander.drop))
+            missing = colander.drop,
+            title=''))
         strategy_count += 1
     
     strategieschemas.add(Strategies_New_Schema(name = 'new', title = ''))
@@ -545,7 +548,8 @@ def edit_report(request):
         customer_gainedschemas.add(colander.SchemaNode(colander.String(),
             name = str(customer_gained_count),
             default = customer,
-            missing = colander.drop))
+            missing = colander.drop,
+            title=''))
         customer_gained_count += 1
     
     customer_gainedschemas.add(Customer_gained_New_Schema(name = 'new', title = ''))
@@ -570,7 +574,8 @@ def edit_report(request):
         orderschemas.add(colander.SchemaNode(colander.String(),
             name = str(order_count),
             default = x,
-            missing = colander.drop))
+            missing = colander.drop,
+            title=''))
         order_count += 1
     
     orderschemas.add(Orders_New_Schema(name = 'new', title = ''))
@@ -639,7 +644,8 @@ def edit_report(request):
         explainschemas.add(colander.SchemaNode(colander.String(),
             name = str(explain_count),
             default = ex,
-            missing = colander.drop))
+            missing = colander.drop,
+            title=''))
         explain_count += 1
     
     explainschemas.add(Explains_New_Schema(name = 'new', title = ''))

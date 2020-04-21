@@ -29,9 +29,10 @@
                 </div>
                 <div class = 'form-group'>
                     <label>Permission:
-                        <select name = 'permission' class='inline-block'>
-                            <option value = 'admin'>admin</option>
-                            <option value = 'viewer' selected>viewer</option>
+                        <select name = 'permission' class='inline-block' style="width:100%;">
+                            <option value = 'admin'>Admin</option>
+                            <option value = 'viewer' selected>Viewer</option>
+                        </select>
                     </label>
                 </div>
                 <div>
