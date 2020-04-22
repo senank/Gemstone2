@@ -18,20 +18,20 @@
             onsubmit = "return confirm('Are you sure you want to update?\n\nIf field is left empty, there will be no changes made to that field')">
                 <div>
                     <label>First Name:
-                        <input type="text" class='form-control' name = "first_name" placeholder="${request.user.first_name.capitalize()}">
+                        <input type="text" class='form-control f-style' name = "first_name" placeholder="${request.user.first_name.capitalize()}">
                     </label>
                 
                     <label>Last Name:
-                        <input type="text" class='form-control' name = "last_name" placeholder="${request.user.last_name.capitalize()}">
+                        <input type="text" class='form-control f-style' name = "last_name" placeholder="${request.user.last_name.capitalize()}">
                     </label>
                 </div>
 
                 <div class='form-group'>
                     <label>Password:
-                        <input type = "password" class='form-control' name = "password" placeholder = "Password">
+                        <input type = "password" class='form-control f-style' name = "password" placeholder = "Password">
                     </label>
                     <label>Confirm:
-                        <input type = "password" class='form-control' name = "confirm_password" placeholder = "Confirm">
+                        <input type = "password" class='form-control f-style' name = "confirm_password" placeholder = "Confirm">
                     </label>
                 </div>
                 <div>

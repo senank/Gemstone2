@@ -1,35 +1,35 @@
 <%inherit file="layout.mako"/>
 
-<div class = "col-md-3"></div>
-<div class = "col-md-6">
+<div class = "col-xs-3"></div>
+<div class = "col-xs-6">
     <div class= 'content'>
         <h1>Create an Account</h1>
         <div class = 'form-group'>
             <form action = "${request.route_url('create')}" method = "POST" class = "inline-block">
                 <div>
                     <label>Username:
-                        <input type="text" class = 'form-control' name = "username" placeholder = 'username' required>
+                        <input type="text" class = 'form-control f-style' name = "username">
                     </label>
                 </div>
                 <div class = 'form-group'>
                     <label>First Name:
-                        <input type="text" class='form-control' name = "first_name">
+                        <input type="text" class='form-control f-style' name = "first_name">
                     </label>
                     <label>Last Name:
-                        <input type="text" class='form-control' name = "last_name">
+                        <input type="text" class='form-control f-style' name = "last_name">
                     </label>
                 </div>
                 <div class = 'form-group'>
                     <label>Password:
-                        <input type = "password" class = 'form-control' name = "password" placeholder = 'Password'>
+                        <input type = "password" class = 'form-control f-style' name = "password">
                     </label>
                     <label>Confirm:
-                        <input type = 'password' class = 'form-control' name ="confirm_password" placeholder = 'Confirm'>
+                        <input type = 'password' class = 'form-control f-style' name ="confirm_password">
                     </label>
                 </div>
                 <div class = 'form-group'>
                     <label>Permission:
-                        <select name = 'permission' class='inline-block' style="width:100%;">
+                        <select name = 'permission' class='inline-block f-style' style="width:100%;">
                             <option value = 'admin'>Admin</option>
                             <option value = 'viewer' selected>Viewer</option>
                         </select>
@@ -52,4 +52,4 @@
     %endif
     </div>
 </div>
-<div class = "col-md-3"></div>
+<div class = "col-xs-3"></div>

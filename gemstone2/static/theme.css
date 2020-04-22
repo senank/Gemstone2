@@ -129,7 +129,7 @@ p {
     text-align: center;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 769px) {
   .starter-template .content h1 .smaller {
     font-size: 25px;
     display: block;
@@ -459,9 +459,28 @@ select{
   margin-bottom:0.6vw;
 }
 
-@media (max-width:629px) {
+@media (max-width:780px) {
   img#arrowimg{
     display: none;
   }
 
+}
+
+.f-style{
+  background-color: #0d253f !important;
+  color : white !important;
+}
+
+.f-style::placeholder{
+  color: #bebebe;
+}
+
+@media screen and (max-width: 780px) {
+  .screenbtn {
+      margin-left: 60% !important;
+  }
+}
+
+.nav-span{
+  color:white !important;
 }
