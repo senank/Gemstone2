@@ -8,7 +8,7 @@
 			  <h1>Welcome ${request.user.first_name.capitalize()},<span>&#160;</span></h1>
 	    </div>
       <div class = 'row'>
-        <div class = 'col-md-7'><h2>Please visit the 'REPORTS' tab to view the Newest Reports</h2></div>
+        <div class = 'col-md-7'><h2>Please visit the 'REPORTS' tab to view the latest reports</h2></div>
         <div class = 'col-md-5'><img class="logo img-responsive" id='arrowimg' src="${request.static_url('gemstone2:static/arrow.png')}" alt="pyramid web framework"></div>
       </div>
     %else:

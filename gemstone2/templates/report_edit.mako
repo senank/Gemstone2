@@ -33,9 +33,9 @@ ${form | n}
         add[i].innerHTML = '<span class="btn-label"><i class="fas fa-plus"></i></span>'
     }
 
-    save.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>save';
-    pdf.innerHTML = '<span class="btn-label"><i class="far fa-file-pdf"></i></span>pdf';
-    back.innerHTML = '<span class="btn-label"><i class="fas fa-arrow-alt-circle-left"></i></span>back';
+    save.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Save';
+    pdf.innerHTML = '<span class="btn-label"><i class="far fa-file-pdf"></i></span>PDF';
+    back.innerHTML = '<span class="btn-label"><i class="fas fa-arrow-alt-circle-left"></i></span>Back';
 </script>
 <script>
 var csrfToken = "${get_csrf_token()}";

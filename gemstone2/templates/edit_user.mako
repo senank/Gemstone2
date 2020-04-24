@@ -39,7 +39,7 @@
                         <input type="hidden" name="csrf_token" value="${get_csrf_token()}">
                         ## <div style="float:left">
                         ## <input name = 'login_submit' type = "submit" class = "btn btn-labeled btn-primary">
-                        <button type="submit" value="Login" name = 'login_submit' class = "btn btn-labeled btn-success"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>submit</button>
+                        <button type="submit" value="Login" name = 'login_submit' class = "btn btn-labeled btn-success"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit</button>
                         <a href="${request.route_url('home')}"><button class = 'btn btn-danger btn-labeled'><span class="btn-label"><i class="fas fa-times"></i></span>Cancel</button></a>
                         ## </div>
                         ## <div style='float:right'>

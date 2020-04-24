@@ -83,9 +83,9 @@ def kpis(request):
         if db_kpi is None:
             kpi = KPI()
             kpi.report_id = 987654321
-            kpi.kpi_name = form_data['kpi']
-            kpi.value = 0
-            kpi.target = 0
+            kpi.kpi_name = form_data['kpi'].title()
+            kpi.value = '---'
+            kpi.target = '---'
             request.dbsession.add(kpi)
             return HTTPFound(location=request.route_url('kpi_list'))
         
@@ -153,7 +153,7 @@ def kpi_edit(request):
                 # 'desc': current['description']
                 }
         
-        kpi.kpi_name = form_data['name']
+        kpi.kpi_name = form_data['name'].title()
         return HTTPFound(location = request.route_url('kpi_list'))
 
     if 'delete' in request.POST:

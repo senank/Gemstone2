@@ -467,12 +467,13 @@ select{
 }
 
 .f-style{
-  background-color: #0d253f !important;
+  background-color: #23374d !important;
   color : white !important;
 }
 
 .f-style::placeholder{
   color: #bebebe;
+  font-weight: 300;
 }
 
 @media screen and (max-width: 780px) {
@@ -483,4 +484,9 @@ select{
 
 .nav-span{
   color:white !important;
+}
+
+.kpi_li{
+  text-align: left;
+  font-weight: 100;
 }

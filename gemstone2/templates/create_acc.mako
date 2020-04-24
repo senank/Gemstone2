@@ -8,7 +8,7 @@
             <form action = "${request.route_url('create')}" method = "POST" class = "inline-block">
                 <div>
                     <label>Username:
-                        <input type="text" class = 'form-control f-style' name = "username">
+                        <input type="text" class = 'form-control f-style' name = "username" placeholder="example@email.com">
                     </label>
                 </div>
                 <div class = 'form-group'>
@@ -38,7 +38,7 @@
                 <div>
                     <div class='form-group'>
                         <input type="hidden" name="csrf_token" value="${get_csrf_token()}">
-                        <button type="submit" style = "display: block !important; margin: 1vw 0 0 0;"value="Login" name = 'login_submit' class = "btn btn-labeled btn-success"><span class="btn-label"><i class="fas fa-user-plus"></i></span>create</button>
+                        <button type="submit" style = "display: block !important; margin: 1vw 0 0 0;"value="Login" name = 'login_submit' class = "btn btn-labeled btn-success"><span class="btn-label"><i class="fas fa-user-plus"></i></span>Create</button>
                     </div>
                 </div>
             </form>

@@ -20,8 +20,8 @@
     back.classList.remove('btn-default');
     back.classList.add('btn-labeled','btn-primary');
     
-    save.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>save';
-    pdf.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>delete';
-    back.innerHTML = '<span class="btn-label"><i class="fas fa-arrow-alt-circle-left"></i></span>cancel';
+    save.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Save';
+    pdf.innerHTML = '<span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>Delete';
+    back.innerHTML = '<span class="btn-label"><i class="fas fa-arrow-alt-circle-left"></i></span>Cancel';
 </script>
 </%block>

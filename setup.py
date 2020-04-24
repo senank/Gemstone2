@@ -24,7 +24,6 @@ requires = [
     'deform',
     'bcrypt',
     'pyramid_deform',
-    'pillow',
     'reportlab',
     'pyramid_mailer',
     'pyramid_tm',

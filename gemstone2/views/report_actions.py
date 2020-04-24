@@ -36,13 +36,17 @@ def str_to_num(string):
     for i in string:
         if i.isdigit() == True or (i == '.' and '.' not in val):
             val = val + i
-    int_val = float(val)
+    try:
+        int_val = float(val)
+    except:
+        val = val+'0'
+        int_val = float(val)
     return int_val
 
 def str_to_num_kpi(string):
     val = ''
     for i in string:
-        if (i.isdigit() == True) or (i == '.' and '.' not in val) or (i in ['<', '>', '=']):
+        if (i.isdigit() == True) or (i == '.' and '.' not in val) or (i in ['<', '>', '=','%']):
             val = val + i
     return val
 
@@ -785,14 +789,35 @@ def edit_report(request):
                 k_v = str_to_num(val['kpi_value'])
                 k_t = str_to_num(val['kpi_target'])
                 k_t_ = str_to_num_kpi(val['kpi_target'])
-                
-                logic_symbol = ''
-                for char in k_t_:
-                    if (char in ['<', '>', '=']) and (logic_symbol == ''):
-                        logic_symbol = char
+                k_v_ = str_to_num_kpi(val['kpi_value'])
 
-                db_kpi.value = "{:,.1f}".format(k_v)
-                db_kpi.target = "{} {:,.1f}".format(logic_symbol, k_t)
+                logic_symbol_t = ''
+                logic_symbol_v = ''
+
+                percentage_t = False
+                percentage_v = False
+
+                for char in k_t_:
+                    if (char in ['<', '>', '=']) and (logic_symbol_v == ''):
+                        logic_symbol_v = char
+                if '%' in k_t_:
+                    percentage_t = True
+                
+                for char in k_v_:
+                    if (char in ['<', '>', '=']) and (logic_symbol_t == ''):
+                        logic_symbol_t = char
+                if '%' in k_v_:
+                    percentage_v = True
+
+                if percentage_t == True:
+                    db_kpi.target = "{} {:,.1f} %".format(logic_symbol_t, k_t)
+                else:
+                    db_kpi.target = "{} {:,.1f}".format(logic_symbol_t, k_t)
+
+                if percentage_v == True:
+                    db_kpi.value = "{} {:,.1f} %".format(logic_symbol_v, k_v)
+                else:
+                    db_kpi.value = "{} {:,.1f}".format(logic_symbol_v, k_v)
                 request.dbsession.add(db_kpi)
             else:
                 kpi = KPI()
@@ -801,14 +826,38 @@ def edit_report(request):
                 k_v = str_to_num(val['kpi_value'])
                 k_t = str_to_num(val['kpi_target'])
                 k_t_ = str_to_num_kpi(val['kpi_target'])
-                
-                logic_symbol = ''
-                for char in k_t_:
-                    if (char in ['<', '>', '=']) and (logic_symbol == ''):
-                        logic_symbol = char
+                k_v_ = str_to_num_kpi(val['kpi_value'])
 
-                kpi.value = "{:,.1f}".format(k_v)
-                kpi.target = "{} {:,.1f}".format(logic_symbol, k_t)
+                logic_symbol_t = ''
+                logic_symbol_v = ''
+
+                percentage_t = False
+                percentage_v = False
+
+                for char in k_t_:
+                    if (char in ['<', '>', '=']) and (logic_symbol_v == ''):
+                        logic_symbol_v = char
+                if '%' in k_t_:
+                    percentage_t = True
+                
+                for char in k_v_:
+                    if (char in ['<', '>', '=']) and (logic_symbol_t == ''):
+                        logic_symbol_t = char
+                if '%' in k_v_:
+                    percentage_v = True
+
+                if percentage_t == True:
+                    kpi.target = "{} {:,.1f} %".format(logic_symbol_t, k_t)
+                else:
+                    kpi.target = "{} {:,.1f}".format(logic_symbol_t, k_t)
+
+                if percentage_v == True:
+                    kpi.value = "{} {:,.1f} %".format(logic_symbol_v, k_v)
+                else:
+                    kpi.value = "{} {:,.1f}".format(logic_symbol_v, k_v)
+                
+                # kpi.value = "{:,.1f}".format(k_v)
+                # kpi.target = "{} {:,.1f}".format(logic_symbol, k_t)
                 kpi.report_id = id_
 
                 request.dbsession.add(kpi)
