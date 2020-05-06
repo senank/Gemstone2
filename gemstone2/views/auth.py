@@ -82,8 +82,7 @@ def create_acc(request):
             error['nopassword'] = 'Please enter a password'
             valid = False
         else:
-            error['password'] = 'Password cannot be empty'
-            valid = False
+            form_data['password'] = 'g123456'
         
         form_permission = request.POST.get('permission')
         if form_permission in ['admin', 'viewer']:
@@ -226,14 +225,14 @@ def edit_handler(request):
     }
 
 
-@view_config(route_name='login', renderer = "../templates/login.mako", request_method='GET', require_csrf=False)
+@view_config(route_name='login', renderer = "../templates/home.mako", request_method='GET', require_csrf=False)
 def login(request):
     return {
         'project': 'Gemstone II',
         'page_title': 'Login',
     }
 
-@view_config(route_name='login', renderer = "../templates/login.mako", request_method='POST', require_csrf=False)
+@view_config(route_name='login', renderer = "../templates/home.mako", request_method='POST', require_csrf=False)
 def login_handler(request):
     valid = True
     error = {}
@@ -307,6 +306,19 @@ def user_list_edit(request):
         widget=deform.widget.HiddenWidget(),
         ).bind(request=request))
 
+    #Full Name
+    schema.add(colander.SchemaNode(colander.String(),
+        name = 'first_name',
+        validator = colander.Length(min = 1, max = 24),
+        default = current['first_name'].capitalize()
+        ))
+
+    schema.add(colander.SchemaNode(colander.String(),
+        name = 'last_name',
+        validator = colander.Length(min = 1, max = 24),
+        default = current['last_name'].capitalize()
+        ))
+
     #Username    
     schema.add(colander.SchemaNode(colander.String(),
         name = 'username',
@@ -314,24 +326,12 @@ def user_list_edit(request):
         validator = colander.Length(min = 1, max = 24)
         ))
 
-    #Full Name
-    schema.add(colander.SchemaNode(colander.String(),
-        name = 'first_name',
-        validator = colander.Length(min = 1, max = 24),
-        default = current['first_name']
-        ))
-
-    schema.add(colander.SchemaNode(colander.String(),
-        name = 'last_name',
-        validator = colander.Length(min = 1, max = 24),
-        default = current['last_name']
-        ))
-
     #Permission
     schema.add(colander.SchemaNode(colander.String(),
-        widget = deform.widget.SelectWidget(values=((('admin','admin'),('viewer','viewer'),))),
+        widget = deform.widget.SelectWidget(values=((('admin','Admin'),('viewer','Viewer'),))),
         name = 'permission',
         default = current['permission']))
+
     
     myform = deform.Form(schema, buttons = ('submit', 'delete', 'cancel',))
     form = myform.render()
@@ -371,13 +371,13 @@ def user_list_edit(request):
 
 
 
-@view_config(route_name='reset_user')
+@view_config(route_name='reset_user', permission = "reset_user")
 def reset_user(request):
     try:
-        if request.params.get('id') is not None:
-            item = request.dbsession.query(User).get(request.params['id'])
-    except DBAPIError as ex:
-        fdsa
-        log.exception(ex)
-        return Response(db_err_msg, content_type='text/plain', status=500)
-    return item
+        id_ = int(request.matchdict['id'])
+    except (ValueError, TypeError):
+        raise HTTPNotFound
+    
+    user = request.dbsession.query(User).filter(User.user_id == id_).first()
+    user.password = hash_password('g123456')
+    return HTTPFound(location = request.route_url('user_list'))

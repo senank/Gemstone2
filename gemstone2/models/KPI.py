@@ -12,5 +12,5 @@ class KPI(Base):
     kpi_id = Column(Integer, primary_key=True)
     kpi_name = Column(Text, nullable = False)
     report_id = Column(Integer, nullable = False)
-    value = Column(Integer, nullable = False)
-    target = Column(Integer, nullable = False)
+    value = Column(Text, nullable = False)
+    target = Column(Text, nullable = False)

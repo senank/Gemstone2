@@ -1,9 +1,9 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
 body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-weight: 550;
   color: #ffffff;
-  background: #a9e5ff;
+  background: #0d253f;
 }
 h1,
 h2,
@@ -27,7 +27,7 @@ p {
   font-weight: 700;
 }
 .starter-template {
-  margin-top: 250px;
+  margin-top: 5vw;
 }
 .starter-template .content {
   margin-left: 10px;
@@ -73,11 +73,10 @@ p {
   font-weight: 400;
 }
 .starter-template .links ul li a, a {
-  color: #f2b7bd;
-  text-decoration: underline;
+  color: white;
 }
 .starter-template .links ul li a:hover, a:hover {
-  color: #ffffff;
+  color: #822737;
   text-decoration: underline;
 }
 .starter-template .links ul li .icon-muted {
@@ -90,8 +89,7 @@ p {
 .starter-template .copyright {
   margin-top: 10px;
   font-size: 0.9em;
-  color: #f2b7bd;
-  text-transform: lowercase;
+  color: #c7c7c7;
   float: right;
   right: 0;
 }
@@ -118,7 +116,8 @@ p {
     text-align: center;
   }
   .starter-template .content h1 {
-    margin-bottom: 20px;
+    margin-bottom: 1vw;
+    margin-left: 10vw
   }
   .starter-template .links {
     float: none;
@@ -130,7 +129,7 @@ p {
     text-align: center;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 769px) {
   .starter-template .content h1 .smaller {
     font-size: 25px;
     display: block;
@@ -174,22 +173,23 @@ header::after{
   margin-left: 70px;
   padding-top: 25px;
   position: relative;
-  color: #ff8800;
+  color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
 }
 
 .nav a{
-  color: #ff8800;
+  color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
 }
 
 .nav a:hover{
-  color: #ff8800;
+  color: #FFFFFF;
   text-decoration: none;
+  background-color: #0d253f;
 }
 
 .nav a::after{
@@ -197,7 +197,7 @@ header::after{
   display: block;
   height: 2px;
   width: 0%;
-  background-color: #ff8800;
+  background-color: #0d253f;
   top: 0px;
   position: relative;
 
@@ -206,10 +206,287 @@ header::after{
 
 .nav a:hover::after{
   width: 100%;
+  background-color: #FFFFFF;
 }
 
 .logo{
   position: relative;
   float: left;
   font-weight: 500;
+}
+
+#kpi_list{
+  background-color: #0d253f;
+}
+
+.navcontainer{
+  padding-right: 10%;
+  padding-left: 10%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#arrowimg{
+  top: -203px;
+  left: -50px;
+  height: 600px;
+  width: 550px;
+}
+
+#home h2{
+  color: #c0c0c0;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+#form-xd{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.report_li{
+  margin-bottom: 1vh;
+}
+
+.report_li > span {
+  margin: 0 1vw 0 0;
+}
+
+.btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px;}
+.btn-labeled {padding-top: 0;padding-bottom: 0;}
+.btn { margin-bottom:10px; }
+
+
+.center{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.title{
+  
+  position: relative;
+  text-decoration:none;
+  width:100%;
+  height:100%;
+  text-align: center;
+  line-height: 50px;
+  display:inline-block;
+  
+  -webkit-animation: zoom 3s none 1;
+  animation-fill-mode: forwards;
+
+}
+
+.title:before{
+  content:'';
+  position: absolute;
+  top:-2px;
+  left:-2px;
+  width:0%;
+  height:0%;
+  border:2px solid transparent;
+  background:transparent;
+  -webkit-animation: animate 3s none 1;
+  /* animation-delay: 3s; */
+  animation-fill-mode: forwards;
+}
+
+
+
+@keyframes animate{
+  0%{
+    width:0;
+    height:0;
+    border-top-color:white;
+    border-bottom-color:transparent;
+    border-right-color:transparent;
+    border-left-color:transparent;
+
+  }
+  
+  100%{
+    width:100%;
+    height:0%;
+    border-top-color:white;
+    border-bottom-color:transparent;
+    border-right-color:transparent;
+    border-left-color:transparent;
+
+  }
+}
+
+
+
+.title:after{
+  content:'';
+  position: absolute;
+  top:-2px;
+  right:-2px;
+  
+  border:2px solid transparent;
+  background:transparent;
+  -webkit-animation: animate2 3s none 1;
+  /* animation-delay: 3s; */
+  animation-fill-mode: forwards;
+  
+}
+
+
+
+@keyframes animate2{
+  0%{
+    width:0;
+    height:100%;
+    border-top-color:transparent;
+    border-bottom-color:transparent;
+    border-right-color:transparent;
+    border-left-color:transparent
+
+  }
+  
+  100%{
+    width:100%;
+    height:100%;
+    border-top-color:transparent;
+    border-bottom-color:white;
+    border-right-color:transparent;
+    border-left-color:transparent;
+
+  }
+}
+
+@keyframes zoom{
+  0%{
+    opacity:0;
+  }
+  100%{
+    opacity:1;
+    transform: scale(1.5);
+    position: center;
+    
+    
+  }
+}
+
+
+/* title css stuff bitch whore */
+
+.contenedor {
+  display: table;
+  background: #0d253f;
+}
+
+.contenedor > h1 {
+  float: left;
+  position: relative;
+  background: #0d253f;
+}
+
+.contenedor > h1 > span {
+  position: absolute;
+  right: 0;
+  width: 0;
+  border-left: 1px solid white;
+  background: #0d253f;
+  animation: maquina 4s alternate steps(31);
+}
+
+@keyframes maquina {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+
+select{
+  color: #0d253f;
+}
+
+.tag_body{
+  color: rgb(255, 255, 0);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.panel-default>*{
+  background-color: #0d253f !important;
+}
+
+.panel-default > .panel-heading{
+  border-bottom: None !important;
+  color: white;
+}
+
+.panel-default > .panel-footer{
+  border-top: None !important;
+}
+
+.deform-seq > .panel-default{
+  border: None !important;
+}
+
+.deform-seq-add{
+  text-decoration: none;
+  color: white;
+
+}
+
+.panel-heading > a:hover, a:focus{
+  text-decoration: None !important;
+  color: #b8ff76 !important;
+}
+
+.form-group > input{
+  background-color: #23374d !important;
+  color: white !important;
+}
+
+.form-group > select{
+  background-color: #23374d !important;
+  color: white !important;
+}
+
+.btn{
+  margin-right: 0.3vw;
+}
+
+.panel{
+  margin-bottom:0.6vw;
+}
+
+@media (max-width:780px) {
+  img#arrowimg{
+    display: none;
+  }
+
+}
+
+.f-style{
+  background-color: #23374d !important;
+  color : white !important;
+}
+
+.f-style::placeholder{
+  color: #bebebe;
+  font-weight: 300;
+}
+
+@media screen and (max-width: 780px) {
+  .screenbtn {
+      margin-left: 60% !important;
+  }
+}
+
+.nav-span{
+  color:white !important;
+}
+
+.kpi_li{
+  text-align: left;
+  font-weight: 100;
 }

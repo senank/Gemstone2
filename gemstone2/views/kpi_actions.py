@@ -44,7 +44,7 @@ def kpis(request):
             query = request.dbsession.query(KPI).filter(KPI.report_id == 987654321)
 
             kpis = query.distinct(KPI.kpi_name)
-            
+            checker = query.first()
             
 
         except DBAPIError as ex:
@@ -57,8 +57,8 @@ def kpis(request):
 
     schema = colander.SchemaNode(colander.Mapping(), colander.SchemaNode(colander.String(), name = 'csrf_token',\
         default=deferred_csrf_default, widget=deform.widget.HiddenWidget()).bind(request=request))
-    schema.add(colander.SchemaNode(colander.String(), validator = colander.Length(min = 1, max = 24), \
-        name = 'kpi'))
+    schema.add(colander.SchemaNode(colander.String(), validator = colander.Length(min = 1, max = 60), \
+        name = 'kpi', title = 'KPI Description'))
 
 
     myform = deform.Form(schema, buttons=('add',))
@@ -72,24 +72,26 @@ def kpis(request):
 
         except deform.exception.ValidationFailure as e:
             return {
+                'checker': checker,
                 'kpis': kpis,
                 'page_title': 'Gemstone II',
                 'project': 'Gemstone II',
                 'form': e.render(),
                  }
-        db_kpi = request.dbsession.query(KPI).filter(KPI.kpi_name == form_data['kpi']).first()
+        db_kpi = request.dbsession.query(KPI).filter(KPI.kpi_name == form_data['kpi'], KPI.report_id == 987654321).first()
         
         if db_kpi is None:
             kpi = KPI()
             kpi.report_id = 987654321
-            kpi.kpi_name = form_data['kpi']
-            kpi.value = 0
-            kpi.target = 0
+            kpi.kpi_name = form_data['kpi'].title()
+            kpi.value = '---'
+            kpi.target = '---'
             request.dbsession.add(kpi)
             return HTTPFound(location=request.route_url('kpi_list'))
         
         error['x'] = 'This is already a KPI'
         return {
+            'checker' : checker,
             'error' : error,
             'kpis' : kpis,
             'page_title': 'Gemstone II',
@@ -99,6 +101,7 @@ def kpis(request):
         }
 
     return {
+        'checker': checker,
         'kpis': kpis,
         'page_title': 'Gemstone II',
         'project': 'Gemstone II',
@@ -115,7 +118,9 @@ def kpi_edit(request):
     
     kpi = request.dbsession.query(KPI).filter(KPI.kpi_id == id_, KPI.report_id == 987654321).first()
     
-    
+    if kpi is None:
+        raise HTTPForbidden
+
     schema = colander.SchemaNode(colander.Mapping(), 
         colander.SchemaNode(colander.String(), 
         name = 'csrf_token',
@@ -126,11 +131,12 @@ def kpi_edit(request):
     
     #rename
     schema.add(colander.SchemaNode(colander.String(),
-        validator = colander.Length(min = 1, max = 24),
+        validator = colander.Length(min = 1, max = 60),
         name = 'name',
-        default = kpi.kpi_name))
+        default = kpi.kpi_name,
+        title="KPI Description"))
 
-    myform = deform.Form(schema, buttons = ('save', 'delete'))
+    myform = deform.Form(schema, buttons = ('save', 'delete', 'back'))
     form = myform.render()
 
     if 'save' in request.POST:
@@ -141,18 +147,23 @@ def kpi_edit(request):
             
         except deform.exception.ValidationFailure as e:
             return {
-                'report' : report,
+                'kpi' : kpi,
                 'id' : id_,
                 'form' : e.render(),
                 # 'desc': current['description']
                 }
         
-        kpi.kpi_name = form_data['name']
+        kpi.kpi_name = form_data['name'].title()
         return HTTPFound(location = request.route_url('kpi_list'))
 
     if 'delete' in request.POST:
         request.dbsession.delete(kpi)
+        request.dbsession.flush()
         return HTTPFound(location = request.route_url('kpi_list'))
+
+    if 'back' in request.POST:
+        return HTTPFound(location = request.route_url('kpi_list'))
+    
     return {
         'kpi' : kpi,
         'id' : id_,
@@ -162,3 +173,14 @@ def kpi_edit(request):
     }
 
 db_err_msg = 'Unable to load data'
+
+@view_config(route_name = 'kpi_delete', permission = 'kpi_delete')
+def kpi_delete(request):
+    try:
+        id_ = int(request.matchdict['id'])
+    except (ValueError, TypeError):
+        raise HTTPNotFound
+    kpi = request.dbsession.query(KPI).filter(KPI.kpi_id == id_, KPI.report_id == 987654321).first()
+    request.dbsession.delete(kpi)
+    request.dbsession.flush()
+    return HTTPFound(location = request.route_url('kpi_list'))

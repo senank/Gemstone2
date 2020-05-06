@@ -1,9 +1,18 @@
 <%inherit file="layout.mako"/>
 <div class="content">
-  <h1><span class="font-semi-bold">GEMSTONE II</span> </h1>
-    <p class="lead"><span class="font-semi-bold">404</span> Page Not Found</p>
-</div>
+  <%
+  url = request.path.split('/')
+  path = url[-1].upper()
+  %>
 
+
+  <h1><span class="font-semi-bold">Forbidden Access</span></h1>
+  %if request.authenticated_userid is not None:
+    <p class='lead'>Access Denied</p>
+  %else:
+    <p class='lead'>Please login with the correct permissions
+  %endif
+</div>
 
 <div class="container">
   <div class="modal fade login" id="loginModal">
@@ -47,11 +56,11 @@
 
 
               <div class="form loginBox">
-                  <form method="POST" action="${request.route_url('login')}" accept-charset="UTF-8">
-                  <input id="email" class="form-control" type="text" placeholder="Username" name="username">
-                  <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                  <input class="btn btn-default btn-login" type="submit" value="Login" name = 'login_submit'>
-                  </form>
+                <form method="POST" action="${request.route_url('login')}" accept-charset="UTF-8">
+                <input id="email" class="form-control" type="text" placeholder="Username" name="username">
+                <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                <input class="btn btn-default btn-login" type="submit" value="Login" name = 'login_submit'>
+                </form>
               </div>
             </div>
         </div>
@@ -59,10 +68,10 @@
     </div>
   </div>
 </div>
-%if request.authenticated_userid is None:
+  %if request.authenticated_userid is None:
   <script type="text/javascript">
       $(document).ready(function(){
           openLoginModal();
       });
   </script>
-%endif
+  %endif
