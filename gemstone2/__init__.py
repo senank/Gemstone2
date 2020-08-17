@@ -20,7 +20,7 @@ def main(global_config = None, **settings):
     """
     # settings = expandvars_dict(settings)
     if os.environ.get('DATABASE_URL', ''):
-        settings["sqlalchemy.url"] = os.environ["DATABASE_URL"]
+        settings["url"] = os.environ["DATABASE_URL"]
 
     with Configurator(settings=settings, root_factory='.resources.Root') as config:
         config.include('.models')
