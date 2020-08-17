@@ -15,7 +15,7 @@ def expandvars_dict(settings):
     return dict((key, os.path.expandvars(value)) for
                 key, value in settings.items())
 
-def main(global_config, **settings):
+def main(global_config = None, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     # settings = expandvars_dict(settings)
