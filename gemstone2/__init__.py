@@ -1,3 +1,4 @@
+import os
 from pyramid.config import Configurator
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
@@ -9,9 +10,16 @@ from pyramid.events import BeforeRender
 #     event['project'] = 'Gemstone II'
 #     event['page_title'] = "Gemstone II"
 
+def expandvars_dict(settings):
+    """Expands all environment variables in a settings dictionary."""
+    return dict((key, os.path.expandvars(value)) for
+                key, value in settings.items())
+
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    settings = expandvars_dict(settings)
+
     with Configurator(settings=settings, root_factory='.resources.Root') as config:
         config.include('.models')
         config.include('pyramid_mako')
