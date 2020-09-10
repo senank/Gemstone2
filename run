@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-cd gemstone2
 pip install -e .
 initializedb production.ini
 python runapp.py 
