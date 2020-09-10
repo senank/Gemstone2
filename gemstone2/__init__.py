@@ -20,6 +20,8 @@ def main(global_config, **settings):
     """
     if os.environ.get('DATABASE_URL', ''):
         settings["sqlalchemy.url"] = os.environ["DATABASE_URL"]
+    else:
+        settings["sqlalchemy.url"] = "postgres://postgres:12345@localhost:5432"
 
     with Configurator(settings=settings, root_factory='.resources.Root') as config:
         config.include('.models')
