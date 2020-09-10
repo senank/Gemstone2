@@ -10,15 +10,16 @@ from pyramid.events import BeforeRender
 #     event['project'] = 'Gemstone II'
 #     event['page_title'] = "Gemstone II"
 
-def expandvars_dict(settings):
-    """Expands all environment variables in a settings dictionary."""
-    return dict((key, os.path.expandvars(value)) for
-                key, value in settings.items())
+# def expandvars_dict(settings):
+#     """Expands all environment variables in a settings dictionary."""
+#     return dict((key, os.path.expandvars(value)) for
+#                 key, value in settings.items())
 
-def main(global_config = None, **settings):
+def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    settings = expandvars_dict(settings)
+    if os.environ.get('DATABASE_URL', ''):
+        settings["sqlalchemy.url"] = os.environ["DATABASE_URL"]
 
     with Configurator(settings=settings, root_factory='.resources.Root') as config:
         config.include('.models')
