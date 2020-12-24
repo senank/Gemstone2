@@ -5,6 +5,8 @@ from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.events import subscriber
 from pyramid.events import BeforeRender
 
+import os
+
 # def add_global(event):
 #     event['project'] = 'Gemstone II'
 #     event['page_title'] = "Gemstone II"
