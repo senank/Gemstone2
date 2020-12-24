@@ -55,7 +55,7 @@
 ## %endif
 ## ${maxs.year} ${maxs.quarter}
 
-
+<p style="text-decoration: underline;">Make a New Report<p>
 ${form | n} 
 
 %else:
