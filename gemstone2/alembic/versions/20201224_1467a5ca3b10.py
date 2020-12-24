@@ -1,8 +1,8 @@
 """init
 
-Revision ID: b9c402a2e75d
-Revises: c73a5f9123ba
-Create Date: 2020-04-08 23:33:28.071968
+Revision ID: 1467a5ca3b10
+Revises: 
+Create Date: 2020-12-24 18:34:57.585163
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b9c402a2e75d'
-down_revision = 'c73a5f9123ba'
+revision = '1467a5ca3b10'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -21,8 +21,8 @@ def upgrade():
     sa.Column('kpi_id', sa.Integer(), nullable=False),
     sa.Column('kpi_name', sa.Text(), nullable=False),
     sa.Column('report_id', sa.Integer(), nullable=False),
-    sa.Column('value', sa.Integer(), nullable=False),
-    sa.Column('target', sa.Integer(), nullable=False),
+    sa.Column('value', sa.Text(), nullable=False),
+    sa.Column('target', sa.Text(), nullable=False),
     sa.PrimaryKeyConstraint('kpi_id', name=op.f('pk_kpi'))
     )
     op.create_table('reports',
@@ -35,34 +35,34 @@ def upgrade():
     sa.Column('strategy', sa.Text(), nullable=True),
     sa.Column('customer_gained', sa.Text(), nullable=True),
     sa.Column('order', sa.Text(), nullable=True),
-    sa.Column('revenue_1', sa.Integer(), nullable=True),
-    sa.Column('revenue_2', sa.Integer(), nullable=True),
-    sa.Column('revenue_3', sa.Integer(), nullable=True),
-    sa.Column('revenue_4', sa.Integer(), nullable=True),
-    sa.Column('revenue_YTD', sa.Integer(), nullable=True),
-    sa.Column('revenue_FY', sa.Integer(), nullable=True),
-    sa.Column('revenue_plan', sa.Integer(), nullable=True),
-    sa.Column('profit_1', sa.Integer(), nullable=True),
-    sa.Column('profit_2', sa.Integer(), nullable=True),
-    sa.Column('profit_3', sa.Integer(), nullable=True),
-    sa.Column('profit_4', sa.Integer(), nullable=True),
-    sa.Column('profit_YTD', sa.Integer(), nullable=True),
-    sa.Column('profit_FY', sa.Integer(), nullable=True),
-    sa.Column('profit_plan', sa.Integer(), nullable=True),
-    sa.Column('EBITDA_1', sa.Integer(), nullable=True),
-    sa.Column('EBITDA_2', sa.Integer(), nullable=True),
-    sa.Column('EBITDA_3', sa.Integer(), nullable=True),
-    sa.Column('EBITDA_4', sa.Integer(), nullable=True),
-    sa.Column('EBITDA_YTD', sa.Integer(), nullable=True),
-    sa.Column('EBITDA_FY', sa.Integer(), nullable=True),
-    sa.Column('EBITDA_plan', sa.Integer(), nullable=True),
-    sa.Column('cf_1', sa.Integer(), nullable=True),
-    sa.Column('cf_2', sa.Integer(), nullable=True),
-    sa.Column('cf_3', sa.Integer(), nullable=True),
-    sa.Column('cf_4', sa.Integer(), nullable=True),
-    sa.Column('cf_YTD', sa.Integer(), nullable=True),
-    sa.Column('cf_FY', sa.Integer(), nullable=True),
-    sa.Column('cf_plan', sa.Integer(), nullable=True),
+    sa.Column('revenue_1', sa.Text(), nullable=True),
+    sa.Column('revenue_2', sa.Text(), nullable=True),
+    sa.Column('revenue_3', sa.Text(), nullable=True),
+    sa.Column('revenue_4', sa.Text(), nullable=True),
+    sa.Column('revenue_YTD', sa.Text(), nullable=True),
+    sa.Column('revenue_FY', sa.Text(), nullable=True),
+    sa.Column('revenue_plan', sa.Text(), nullable=True),
+    sa.Column('profit_1', sa.Text(), nullable=True),
+    sa.Column('profit_2', sa.Text(), nullable=True),
+    sa.Column('profit_3', sa.Text(), nullable=True),
+    sa.Column('profit_4', sa.Text(), nullable=True),
+    sa.Column('profit_YTD', sa.Text(), nullable=True),
+    sa.Column('profit_FY', sa.Text(), nullable=True),
+    sa.Column('profit_plan', sa.Text(), nullable=True),
+    sa.Column('EBITDA_1', sa.Text(), nullable=True),
+    sa.Column('EBITDA_2', sa.Text(), nullable=True),
+    sa.Column('EBITDA_3', sa.Text(), nullable=True),
+    sa.Column('EBITDA_4', sa.Text(), nullable=True),
+    sa.Column('EBITDA_YTD', sa.Text(), nullable=True),
+    sa.Column('EBITDA_FY', sa.Text(), nullable=True),
+    sa.Column('EBITDA_plan', sa.Text(), nullable=True),
+    sa.Column('cf_1', sa.Text(), nullable=True),
+    sa.Column('cf_2', sa.Text(), nullable=True),
+    sa.Column('cf_3', sa.Text(), nullable=True),
+    sa.Column('cf_4', sa.Text(), nullable=True),
+    sa.Column('cf_YTD', sa.Text(), nullable=True),
+    sa.Column('cf_FY', sa.Text(), nullable=True),
+    sa.Column('cf_plan', sa.Text(), nullable=True),
     sa.Column('explain', sa.Text(), nullable=True),
     sa.Column('last_updated', sa.DateTime(), nullable=True),
     sa.Column('filename', sa.Text(), nullable=True),

@@ -14,8 +14,8 @@ import os
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    sql_server = os.environ.get('DATABASE_URL')
-    settings['sqlalchemy.url'] = sql_server
+    # sql_server = os.environ.get('DATABASE_URL')
+    # settings['sqlalchemy.url'] = sql_server
 
     with Configurator(settings=settings, root_factory='.resources.Root') as config:
         config.add_static_view('static', 'static', cache_max_age=3600)
