@@ -1,4 +1,5 @@
 """Pyramid bootstrap environment. """
+import os
 from alembic import context
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
@@ -37,6 +38,8 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
+    if 'sqlalchemy.url' not in settings.keys():
+        settings['sqlalchemy.url'] = os.environ.get('DATABASE_URL')
     engine = engine_from_config(settings, prefix='sqlalchemy.')
 
     connection = engine.connect()
